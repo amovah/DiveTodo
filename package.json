@@ -1,7 +1,7 @@
 {
   "name": "divetodo",
   "version": "0.0.1",
-  "description": "Design your days and dive to do",
+  "description": "Design your days and dive to them",
   "main": "index.js",
   "scripts": {
     "test": "echo test"
