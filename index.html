@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DiveTodo</title>
+    <link rel='stylesheet/less' href='./less/main.less'>
+  </head>
+  <body>
+
+    <header>
+      <h3>DiveTodo</h3>
+      <p>Your day is yours</p>
+    </header>
+
+    <div class='container'>
+
+      <div id='todoSection'>
+        <div class='item-with-icon'>
+          <h4>Today</h4>
+          <span class='icon icon-calendar'></span>
+        </div>
+        <div class='subitem'>
+          <div class='item-with-icon just-hover-icon'>
+            <h4>Do</h4>
+            <span class='icon icon-plus light'>
+          </div>
+          <ul class='subitem' id='todo-list'>
+            <li class='item-with-icon hover-icon'>
+              <p>Buy a MacBook</p>
+              <div>
+                <span class='icon light icon-x'></span>
+                <span class='icon light icon-pencil'></span>
+              </div>
+            </li>
+            <li class='item-with-icon hover-icon'>
+              <p>Create a TelegramBot for manage my server</p>
+              <div>
+                <span class='icon light icon-x'></span>
+                <span class='icon light icon-pencil'></span>
+              </div>
+            </li>
+            <li class='item-with-icon hover-icon'>
+              <p>Debug the bug</p>
+              <div>
+                <span class='icon light icon-x'></span>
+                <span class='icon light icon-pencil'></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class='item-with-icon just-hover-icon'>
+          <h4>Remember</h4>
+          <span class='icon icon-plus light'></span>
+        </div>
+        <ul class='subitem'>
+          <li class='item-with-icon hover-icon'>
+            <p>Son birthday</p>
+            <div>
+              <span class='icon light icon-x'></span>
+              <span class='icon light icon-pencil'></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <span class='sepratorLine'></span>
+
+      <div id='chartSection'>
+        <div class='item-with-icon'>
+          <h4>Time Tracker</h4>
+          <span class='icon icon-clock'></span>
+        </div>
+        <p> Coming Soon </p>
+      </div>
+
+    </div>
+
+  </body>
+  <script src='./less/less.min.js'></script>
+  <script src='./js/index.js'></script>
+</html>

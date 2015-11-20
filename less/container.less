@@ -1,0 +1,80 @@
+div.container {
+  padding: 10px 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  #todoSection,
+  #chartSection {
+    width: calc(~"50% - 30px");
+  }
+
+  .item-with-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    h2, h3, h4 {
+      margin: 0;
+    }
+  }
+
+  .subitem {
+    margin-left: 10px;
+  }
+
+  .sepratorLine {
+    background-color: #1C3961;
+    display: block;
+    height: 500px;
+    width: 4px;
+  }
+
+  .hover-icon {
+    .icon {
+      opacity: 0;
+      transition: all 0.4s ease;
+      &::before {
+        transition: all 0.4s ease;
+      }
+    }
+
+    &:hover {
+      .icon {
+        opacity: 1;
+      }
+    }
+
+    .icon:hover::before {
+      color: white;
+    }
+  }
+
+  .just-hover-icon {
+    .icon::before {
+      transition: all 0.4s ease;
+    }
+
+    .icon:hover::before {
+      color: white;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+    padding: 10px;
+
+    .sepratorLine {
+      height: 4px;
+      width: 100%;
+    }
+
+    #todoSection,
+    #chartSection {
+      margin: 50px;
+      display: block;
+      width: auto;
+    }
+  }
+}
