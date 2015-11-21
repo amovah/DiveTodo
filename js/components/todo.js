@@ -14,7 +14,7 @@ class Todo extends Component {
   }
 }
 
-export class TodoList extends Component {
+export default class TodoList extends Component {
   render() {
     return (
       <ul className='subitem'>

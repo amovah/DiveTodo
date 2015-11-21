@@ -14,7 +14,7 @@ export class Remember extends Component {
   }
 }
 
-export class RememberList extends Component {
+export default class RememberList extends Component {
   render() {
     return (
       <ul className='subitem'>

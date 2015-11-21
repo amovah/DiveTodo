@@ -1,32 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TodoList } from './todo';
-import { RememberList } from './remember';
-import { addTodo } from '../actions';
-
-class AddTodo extends Component {
-  handleClick() {
-    const node = this.refs.input;
-    const text = node.value.trim();
-    this.props.onAddClick(text);
-    node.value = '';
-  }
-
-  render() {
-    return (
-      <div>
-        <input type='text' ref='input' />
-        <button onClick={(e) => this.handleClick(e)}>
-          Add
-        </button>
-      </div>
-    );
-  }
-}
+import TodoList from './todo';
+import RememberList from './remember';
 
 export class MainTodo extends Component {
+  showModal() {
+    document.getElementById('addTodo-modal').classList.add('active');
+  }
+
   render() {
-    const { dispatch, todos, remembers } = this.props;
+    const { todos, remembers } = this.props;
     return (
       <div>
         <div className='item-with-icon'>
@@ -36,20 +19,19 @@ export class MainTodo extends Component {
         <div className='subitem'>
           <div className='item-with-icon just-hover-icon'>
             <h4>Do</h4>
+            <span className='icon icon-plus light' onClick={
+              () => this.showModal()
+            }></span>
+          </div>
+          <TodoList todos={todos}/>
+          <div className='item-with-icon just-hover-icon'>
+            <h4>Remember</h4>
             <span className='icon icon-plus light'></span>
           </div>
-          <AddTodo onAddClick={text =>
-            dispatch(addTodo(text))
-          }/>
-          <TodoList todos={todos}/>
+          <ul className='subitem'>
+            <RememberList remembers={remembers}/>
+          </ul>
         </div>
-        <div className='item-with-icon just-hover-icon'>
-          <h4>Remember</h4>
-          <span className='icon icon-plus light'></span>
-        </div>
-        <ul className='subitem'>
-          <RememberList remembers={remembers}/>
-        </ul>
       </div>
     );
   }

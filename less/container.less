@@ -1,13 +1,6 @@
 div.container {
   padding: 10px 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-
-  #todoSection,
-  #chartSection {
-    width: calc(~"50% - 30px");
-  }
+  width: calc(~"100% - 100px");
 
   .item-with-icon {
     display: flex;
@@ -22,13 +15,6 @@ div.container {
 
   .subitem {
     margin-left: 10px;
-  }
-
-  .sepratorLine {
-    background-color: #1C3961;
-    display: block;
-    height: 500px;
-    width: 4px;
   }
 
   .hover-icon {
@@ -62,19 +48,6 @@ div.container {
   }
 
   @media screen and (max-width: 1000px) {
-    flex-direction: column;
-    padding: 10px;
-
-    .sepratorLine {
-      height: 4px;
-      width: 100%;
-    }
-
-    #todoSection,
-    #chartSection {
-      margin: 50px;
-      display: block;
-      width: auto;
-    }
+    width: auto;
   }
 }
