@@ -2,11 +2,11 @@
   position: fixed;
   right: 10px;
   top: 10px;
-  background-color: @color-0;
-  box-shadow: 3px 5px 6px 10px rgba(0, 0, 0, 0.11),
+  background-color: @color-3;
+  box-shadow: 2px 5px 5px 9px rgba(0, 0, 0, 0.11),
               4px 6px 11px 11px rgba(0, 0, 0, 0.15);
   padding: 10px;
-  width: 220px;
+  width: 300px;
   min-height: 100px;
   display: flex;
   flex-direction: column;
@@ -17,17 +17,19 @@
     height: 80px;
 
     input {
-      width: 200px;
+      width: 280px;
       border: 0;
       outline: 0;
       border-radius: 3px;
       background-color: transparent;
       padding: 5px 10px;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+      color: white;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.5);
       transition: all 0.4s ease;
 
       &:focus {
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: black;
         border-bottom: 2px solid transparent;
       }
     }
@@ -35,7 +37,7 @@
 
   .modal-footer {
     button {
-      border: 2px solid white;
+      border: 2px solid rgba(255, 255, 255, 0.5);
       padding: 3px 15px;
       border-radius: 2px;
       cursor: pointer;
@@ -45,7 +47,7 @@
       transition: all 0.4s ease;
 
       &:hover {
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.9);
         color: black;
       }
     }
