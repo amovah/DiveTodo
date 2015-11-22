@@ -6,4 +6,4 @@ First install the electron-prebuilt
 
 Now run the app
 
-`electron .`
+`electron build`

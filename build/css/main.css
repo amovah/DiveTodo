@@ -1,0 +1,166 @@
+@import '../fonts/divetodo/styles.css';
+@font-face {
+  font-family: 'Sofia Pro';
+  font-weight: 300;
+  src: url('../fonts/sofia_pro_light-webfont.woff2');
+}
+@font-face {
+  font-family: 'Sofia Pro';
+  font-weight: 400;
+  src: url('../fonts/sofia_pro_regular-webfont.woff2');
+}
+@font-face {
+  font-family: 'Sofia Pro';
+  font-weight: 500;
+  src: url('../fonts/sofia_pro_medium-webfont.woff2');
+}
+@font-face {
+  font-family: 'Sofia Pro';
+  font-weight: 700;
+  src: url('../fonts/sofia_pro_bold-webfont.woff2');
+}
+@font-face {
+  font-family: 'Sofia Pro';
+  font-weight: 900;
+  src: url('../fonts/sofia_pro_black-webfont.woff2');
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Sofia Pro';
+  color: white;
+}
+body {
+  background-color: #2C4E7E;
+}
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style: none;
+}
+.icon.light {
+  color: rgba(255, 255, 255, 0.5);
+}
+.icon {
+  cursor: pointer;
+}
+header {
+  background-color: #2B67BD;
+  padding: 10px 30px;
+  box-shadow: 0px 3px 10px 0px rgba(46, 46, 46, 0.6);
+}
+header h3 {
+  margin: 0;
+  padding: 0;
+  font-family: 'Sofia Pro';
+  font-weight: 500;
+  font-size: 40px;
+}
+header p {
+  padding: 0 30px;
+}
+@media screen and (max-width: 1000px) {
+  header {
+    text-aling: center;
+    padding: 10px;
+  }
+  header p {
+    padding: 0;
+  }
+}
+div.container {
+  padding: 10px 50px;
+  width: calc(100% - 100px);
+}
+div.container .item-with-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+div.container .item-with-icon h2,
+div.container .item-with-icon h3,
+div.container .item-with-icon h4 {
+  margin: 0;
+}
+div.container .subitem {
+  margin-left: 10px;
+}
+div.container .hover-icon .icon {
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+div.container .hover-icon .icon::before {
+  transition: all 0.4s ease;
+}
+div.container .hover-icon:hover .icon {
+  opacity: 1;
+}
+div.container .hover-icon .icon:hover::before {
+  color: white;
+}
+div.container .just-hover-icon .icon::before {
+  transition: all 0.4s ease;
+}
+div.container .just-hover-icon .icon:hover::before {
+  color: white;
+}
+@media screen and (max-width: 1000px) {
+  div.container {
+    width: auto;
+  }
+}
+.modal {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  background-color: #193A68;
+  box-shadow: 2px 5px 5px 9px rgba(0, 0, 0, 0.11), 4px 6px 11px 11px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  width: 300px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5s ease;
+  transform: translateY(-200%);
+}
+.modal .modal-content {
+  height: 80px;
+}
+.modal .modal-content input {
+  width: 280px;
+  border: 0;
+  outline: 0;
+  border-radius: 3px;
+  background-color: transparent;
+  padding: 5px 10px;
+  color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.4s ease;
+}
+.modal .modal-content input:focus {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+  border-bottom: 2px solid transparent;
+}
+.modal .modal-footer button {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 3px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  margin: 0 3px;
+  transition: all 0.4s ease;
+}
+.modal .modal-footer button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+.modal.active {
+  transform: translateY(0);
+}
