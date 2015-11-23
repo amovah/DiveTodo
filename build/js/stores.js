@@ -55,7 +55,8 @@ try {
 
 store.subscribe(function () {
   var data = JSON.stringify(store.getState(), null, 2);
-  _fs2.default.writeFileSync('./database.json', data);
+  var dir = __dirname.split('/').slice(0, -1).join('/');
+  _fs2.default.writeFileSync(dir + '/database.json', data);
 });
 
 exports.default = store;

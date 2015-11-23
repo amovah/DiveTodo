@@ -11,7 +11,8 @@ for (let item of database.todos)
 
 store.subscribe(() => {
   let data = JSON.stringify(store.getState(), null, 2);
-  fs.writeFileSync('./database.json', data);
+  let dir = __dirname.split('/').slice(0, -1).join('/');
+  fs.writeFileSync(dir + '/database.json', data);
 });
 
 export default store;
