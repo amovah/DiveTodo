@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_TODO, LOAD_TODO } from './actions';
+import { ADD_TODO, LOAD_TODO, REMOVE_TODO } from './actions';
 
 function todos(state = [], action) {
   switch (action.type) {
@@ -18,6 +18,11 @@ function todos(state = [], action) {
           text: action.text,
           completed: action.completed
         }
+      ];
+    case REMOVE_TODO:
+      return [
+        ...state.slice(0, action.index),
+        ...state.slice(action.index + 1)
       ];
     default:
       return state;

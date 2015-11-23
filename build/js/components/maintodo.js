@@ -49,6 +49,7 @@ var MainTodo = exports.MainTodo = (function (_Component) {
       var _this2 = this;
 
       var _props = this.props;
+      var dispatch = _props.dispatch;
       var todos = _props.todos;
       var remembers = _props.remembers;
 
@@ -80,7 +81,7 @@ var MainTodo = exports.MainTodo = (function (_Component) {
                 return _this2.showModal();
               } })
           ),
-          _react2.default.createElement(_todo2.default, { todos: todos }),
+          _react2.default.createElement(_todo2.default, { todos: todos, dispatch: dispatch }),
           _react2.default.createElement(
             'div',
             { className: 'item-with-icon just-hover-icon' },

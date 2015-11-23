@@ -25,6 +25,8 @@ function todos() {
         text: action.text,
         completed: action.completed
       }]);
+    case _actions.REMOVE_TODO:
+      return [].concat(_toConsumableArray(state.slice(0, action.index)), _toConsumableArray(state.slice(action.index + 1)));
     default:
       return state;
   }

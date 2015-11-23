@@ -9,7 +9,7 @@ export class MainTodo extends Component {
   }
 
   render() {
-    const { todos, remembers } = this.props;
+    const { dispatch, todos, remembers } = this.props;
     return (
       <div>
         <div className='item-with-icon'>
@@ -23,7 +23,7 @@ export class MainTodo extends Component {
               () => this.showModal()
             }></span>
           </div>
-          <TodoList todos={todos}/>
+          <TodoList todos={todos} dispatch={dispatch}/>
           <div className='item-with-icon just-hover-icon'>
             <h4>Remember</h4>
             <span className='icon icon-plus light'></span>
