@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { removeTodo, completeTodo, uncompleteTodo } from '../actions';
 
-class Todo extends Component {
+export default class Todo extends Component {
   toggleComplete(dispatch) {
     this.props.completed ?
     dispatch(uncompleteTodo(this.props.index)) :
@@ -23,23 +23,6 @@ class Todo extends Component {
           <span className='icon light icon-pencil'></span>
         </div>
       </li>
-    );
-  }
-}
-
-export default class TodoList extends Component {
-  render() {
-    return (
-      <ul className='subitem' id='todos'>
-        {
-          this.props.todos.map((item, index) =>
-            <Todo key={index} index={index} dispatch={this.props.dispatch}
-            completed={item.completed}>
-              {item.text}
-            </Todo>
-          )
-        }
-      </ul>
     );
   }
 }

@@ -125,14 +125,13 @@ div.container #todos li > p {
   box-shadow: 2px 5px 5px 9px rgba(0, 0, 0, 0.11), 4px 6px 11px 11px rgba(0, 0, 0, 0.15);
   padding: 10px;
   width: 300px;
-  min-height: 100px;
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
   transform: translateY(-200%);
 }
-.modal .modal-content {
-  height: 80px;
+.modal .modal-content h4 {
+  margin: 10px;
 }
 .modal .modal-content input {
   width: 280px;
@@ -149,6 +148,9 @@ div.container #todos li > p {
   background-color: rgba(255, 255, 255, 0.9);
   color: black;
   border-bottom: 2px solid transparent;
+}
+.modal .modal-footer {
+  margin-top: 10px;
 }
 .modal .modal-footer button {
   border: 2px solid rgba(255, 255, 255, 0.5);

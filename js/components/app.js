@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import TodoList from './todo';
+import TodoList from './todolist';
 import RememberList from './remember';
+import Modal from './modal';
+import { addTodo } from '../actions';
 
-export class MainTodo extends Component {
-  showModal() {
-    document.getElementById('addTodo-modal').classList.add('active');
+export class App extends Component {
+  componentWillMount() {
+    this.createAddTodoModal = this.createAddTodoModal.bind(this);
+  }
+
+  createAddTodoModal() {
+    const { dispatch } = this.props;
+    render(
+      <Modal options={{
+        title: 'Add todo',
+        placeholder: 'What is your todo?',
+        buttons: [{
+          title: 'ADD',
+          onClick(text) {
+            dispatch(addTodo(text));
+          }
+        }]
+      }}/>,
+      document.getElementById('modal')
+    );
   }
 
   render() {
@@ -19,9 +39,8 @@ export class MainTodo extends Component {
         <div className='subitem'>
           <div className='item-with-icon just-hover-icon'>
             <h4>Do</h4>
-            <span className='icon icon-plus light' onClick={
-              () => this.showModal()
-            }></span>
+            <span className='icon icon-plus light'
+            onClick={this.createAddTodoModal}></span>
           </div>
           <TodoList todos={todos} dispatch={dispatch}/>
           <div className='item-with-icon just-hover-icon'>
@@ -37,11 +56,4 @@ export class MainTodo extends Component {
   }
 }
 
-function select(state) {
-  return {
-    todos: state.todos,
-    remembers: state.remembers
-  };
-}
-
-export default connect(select)(MainTodo);
+export default connect(state => state)(App);

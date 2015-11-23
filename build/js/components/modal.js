@@ -10,9 +10,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = require('react-redux');
-
-var _actions = require('../actions');
+var _reactDom = require('react-dom');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,66 +20,90 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AddTodo = (function (_Component) {
-  _inherits(AddTodo, _Component);
+var Modal = (function (_Component) {
+  _inherits(Modal, _Component);
 
-  function AddTodo() {
-    _classCallCheck(this, AddTodo);
+  function Modal() {
+    _classCallCheck(this, Modal);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(AddTodo).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Modal).apply(this, arguments));
   }
 
-  _createClass(AddTodo, [{
-    key: 'handleClick',
-    value: function handleClick(dispatch) {
-      var node = this.refs.input;
-      dispatch((0, _actions.addTodo)(node.value));
-      node.value = '';
-    }
-  }, {
+  _createClass(Modal, [{
     key: 'closeModal',
     value: function closeModal() {
+      var _this2 = this;
+
       this.refs.modal.classList.remove('active');
+      setTimeout((function () {
+        (0, _reactDom.unmountComponentAtNode)(_this2.refs.modal.parentNode);
+      }).bind(this), 400);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this3 = this;
+
+      // I don't why, but I need this little timeout function for it's animation
+
+      setTimeout((function () {
+        _this3.refs.modal.classList.add('active');
+      }).bind(this), 50);
+    }
+  }, {
+    key: 'handleClick',
+    value: function handleClick(action) {
+      var node = this.refs.input;
+      action(node.value);
+      node.value = '';
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this4 = this;
 
-      var dispatch = this.props.dispatch;
+      var options = this.props.options;
+
+      var buttons = options.buttons.map(function (item, index) {
+        return _react2.default.createElement(
+          'button',
+          { key: index, onClick: function onClick() {
+              return _this4.handleClick(item.onClick);
+            } },
+          item.title
+        );
+      }).concat(_react2.default.createElement(
+        'button',
+        { key: 'close', onClick: function onClick() {
+            return _this4.closeModal();
+          } },
+        'CLOSE'
+      ));
 
       return _react2.default.createElement(
         'div',
-        { className: 'modal', id: 'addTodo-modal', ref: 'modal' },
+        { className: 'modal', ref: 'modal' },
         _react2.default.createElement(
           'div',
           { className: 'modal-content' },
-          _react2.default.createElement('input', { type: 'text', placeholder: 'What is your todo?', ref: 'input' })
+          _react2.default.createElement(
+            'h4',
+            null,
+            options.title
+          ),
+          _react2.default.createElement('input', { type: 'text', placeholder: options.placeholder, ref: 'input',
+            value: options.value })
         ),
         _react2.default.createElement(
           'div',
           { className: 'modal-footer' },
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.handleClick(dispatch);
-              } },
-            'ADD'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.closeModal();
-              } },
-            'CLOSE'
-          )
+          buttons
         )
       );
     }
   }]);
 
-  return AddTodo;
+  return Modal;
 })(_react.Component);
 
-exports.default = AddTodo;
-exports.default = (0, _reactRedux.connect)()(AddTodo);
+exports.default = Modal;
