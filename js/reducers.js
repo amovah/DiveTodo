@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { ADD_TODO, LOAD_TODO, REMOVE_TODO } from './actions';
+import * as actions from './actions';
 
 function todos(state = [], action) {
   switch (action.type) {
-    case ADD_TODO:
+    case actions.ADD_TODO:
       return [
         ...state,
         {
@@ -11,7 +11,7 @@ function todos(state = [], action) {
           completed: false
         }
       ];
-    case LOAD_TODO:
+    case actions.LOAD_TODO:
       return [
         ...state,
         {
@@ -19,9 +19,25 @@ function todos(state = [], action) {
           completed: action.completed
         }
       ];
-    case REMOVE_TODO:
+    case actions.REMOVE_TODO:
       return [
         ...state.slice(0, action.index),
+        ...state.slice(action.index + 1)
+      ];
+    case actions.COMPLETE_TODO:
+      return [
+        ...state.slice(0, action.index),
+        Object.assign({}, state[action.index], {
+          completed: true
+        }),
+        ...state.slice(action.index + 1)
+      ];
+    case actions.UNCOMPLETE_TODO:
+      return [
+        ...state.slice(0, action.index),
+        Object.assign({}, state[action.index], {
+          completed: false
+        }),
         ...state.slice(action.index + 1)
       ];
     default:

@@ -30,6 +30,11 @@ var Todo = (function (_Component) {
   }
 
   _createClass(Todo, [{
+    key: 'toggleComplete',
+    value: function toggleComplete(dispatch) {
+      this.props.completed ? dispatch((0, _actions.uncompleteTodo)(this.props.index)) : dispatch((0, _actions.completeTodo)(this.props.index));
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -39,7 +44,12 @@ var Todo = (function (_Component) {
         { className: 'item-with-icon hover-icon' },
         _react2.default.createElement(
           'p',
-          null,
+          { onClick: function onClick() {
+              return _this2.toggleComplete(_this2.props.dispatch);
+            },
+            style: {
+              textDecoration: this.props.completed ? 'line-through' : 'none'
+            } },
           this.props.children
         ),
         _react2.default.createElement(
@@ -74,11 +84,12 @@ var TodoList = (function (_Component2) {
 
       return _react2.default.createElement(
         'ul',
-        { className: 'subitem' },
+        { className: 'subitem', id: 'todos' },
         this.props.todos.map(function (item, index) {
           return _react2.default.createElement(
             Todo,
-            { key: index, index: index, dispatch: _this4.props.dispatch },
+            { key: index, index: index, dispatch: _this4.props.dispatch,
+              completed: item.completed },
             item.text
           );
         })
