@@ -19,9 +19,9 @@ var _todolist = require('./todolist');
 
 var _todolist2 = _interopRequireDefault(_todolist);
 
-var _remember = require('./remember');
+var _rememberlist = require('./rememberlist');
 
-var _remember2 = _interopRequireDefault(_remember);
+var _rememberlist2 = _interopRequireDefault(_rememberlist);
 
 var _modal = require('./modal');
 
@@ -49,11 +49,12 @@ var App = exports.App = (function (_Component) {
   _createClass(App, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.createAddTodoModal = this.createAddTodoModal.bind(this);
+      this.todoModal = this.todoModal.bind(this);
+      this.rememberModal = this.rememberModal.bind(this);
     }
   }, {
-    key: 'createAddTodoModal',
-    value: function createAddTodoModal() {
+    key: 'todoModal',
+    value: function todoModal() {
       var dispatch = this.props.dispatch;
 
       (0, _reactDom.render)(_react2.default.createElement(_modal2.default, { options: {
@@ -63,6 +64,22 @@ var App = exports.App = (function (_Component) {
             title: 'ADD',
             onClick: function onClick(text) {
               dispatch((0, _actions.addTodo)(text));
+            }
+          }]
+        } }), document.getElementById('modal'));
+    }
+  }, {
+    key: 'rememberModal',
+    value: function rememberModal() {
+      var dispatch = this.props.dispatch;
+
+      (0, _reactDom.render)(_react2.default.createElement(_modal2.default, { options: {
+          title: 'Add remember',
+          placeholder: 'What do you want to remember?',
+          buttons: [{
+            title: 'ADD',
+            onClick: function onClick(text) {
+              dispatch((0, _actions.addRemember)(text));
             }
           }]
         } }), document.getElementById('modal'));
@@ -100,7 +117,7 @@ var App = exports.App = (function (_Component) {
               'Do'
             ),
             _react2.default.createElement('span', { className: 'icon icon-plus light',
-              onClick: this.createAddTodoModal })
+              onClick: this.todoModal })
           ),
           _react2.default.createElement(_todolist2.default, { todos: todos, dispatch: dispatch }),
           _react2.default.createElement(
@@ -111,12 +128,13 @@ var App = exports.App = (function (_Component) {
               null,
               'Remember'
             ),
-            _react2.default.createElement('span', { className: 'icon icon-plus light' })
+            _react2.default.createElement('span', { className: 'icon icon-plus light',
+              onClick: this.rememberModal })
           ),
           _react2.default.createElement(
             'ul',
             { className: 'subitem' },
-            _react2.default.createElement(_remember2.default, { remembers: remembers })
+            _react2.default.createElement(_rememberlist2.default, { remembers: remembers })
           )
         )
       );

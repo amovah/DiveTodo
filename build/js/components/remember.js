@@ -5,7 +5,6 @@ var _createClass = (function () { function defineProperties(target, props) { for
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Remember = undefined;
 
 var _react = require('react');
 
@@ -19,7 +18,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Remember = exports.Remember = (function (_Component) {
+var Remember = (function (_Component) {
   _inherits(Remember, _Component);
 
   function Remember() {
@@ -52,33 +51,4 @@ var Remember = exports.Remember = (function (_Component) {
   return Remember;
 })(_react.Component);
 
-var RememberList = (function (_Component2) {
-  _inherits(RememberList, _Component2);
-
-  function RememberList() {
-    _classCallCheck(this, RememberList);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(RememberList).apply(this, arguments));
-  }
-
-  _createClass(RememberList, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'ul',
-        { className: 'subitem' },
-        this.props.remembers.map(function (item, index) {
-          return _react2.default.createElement(
-            Remember,
-            { key: index },
-            item
-          );
-        })
-      );
-    }
-  }]);
-
-  return RememberList;
-})(_react.Component);
-
-exports.default = RememberList;
+exports.default = Remember;

@@ -3,6 +3,7 @@ export const LOAD_TODO = 'LOAD_TOOD';
 export const REMOVE_TODO = 'REMOVE_TODO';
 export const COMPLETE_TODO = 'COMPLETE_TODO';
 export const UNCOMPLETE_TODO = 'UNCOMPLETE_TODO';
+export const ADD_REMEMBER = 'ADD_REMEMBER';
 
 export function addTodo(text) {
   return { type: ADD_TODO, text };
@@ -22,4 +23,8 @@ export function completeTodo(index) {
 
 export function uncompleteTodo(index) {
   return { type: UNCOMPLETE_TODO, index };
+}
+
+export function addRemember(text) {
+  return { type: ADD_REMEMBER, text };
 }

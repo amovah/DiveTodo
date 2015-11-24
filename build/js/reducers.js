@@ -46,8 +46,14 @@ function todos() {
 
 function remembers() {
   var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+  var action = arguments[1];
 
-  return state;
+  switch (action.type) {
+    case actions.ADD_REMEMBER:
+      return [].concat(_toConsumableArray(state), [action.text]);
+    default:
+      return state;
+  }
 }
 
 var todoApp = (0, _redux.combineReducers)({

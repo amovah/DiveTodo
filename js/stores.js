@@ -9,6 +9,9 @@ let store = createStore(todoApp);
 for (let item of database.todos)
   store.dispatch(actions.loadTodo(item));
 
+for (let item of database.remembers)
+  store.dispatch(actions.addRemember(item));
+
 store.subscribe(() => {
   let data = JSON.stringify(store.getState(), null, 2);
   let dir = __dirname.split('/').slice(0, -1).join('/');

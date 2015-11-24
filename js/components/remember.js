@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class Remember extends Component {
+export default class Remember extends Component {
   render() {
     return (
       <li className='item-with-icon hover-icon'>
@@ -10,22 +10,6 @@ export class Remember extends Component {
           <span className='icon light icon-pencil'></span>
         </div>
       </li>
-    );
-  }
-}
-
-export default class RememberList extends Component {
-  render() {
-    return (
-      <ul className='subitem'>
-        {this.props.remembers.map((item, index) => {
-          return (
-            <Remember key={index}>
-              {item}
-            </Remember>
-          );
-        })}
-      </ul>
     );
   }
 }

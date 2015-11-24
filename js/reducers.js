@@ -45,8 +45,16 @@ function todos(state = [], action) {
   }
 }
 
-function remembers(state = []) {
-  return state;
+function remembers(state = [], action) {
+  switch (action.type) {
+    case actions.ADD_REMEMBER:
+      return [
+        ...state,
+        action.text
+      ];
+    default:
+      return state;
+  }
 }
 
 const todoApp = combineReducers({

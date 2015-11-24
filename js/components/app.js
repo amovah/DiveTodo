@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import TodoList from './todolist';
-import RememberList from './remember';
+import RememberList from './rememberlist';
 import Modal from './modal';
-import { addTodo } from '../actions';
+import { addTodo, addRemember } from '../actions';
 
 export class App extends Component {
   componentWillMount() {
-    this.createAddTodoModal = this.createAddTodoModal.bind(this);
+    this.todoModal = this.todoModal.bind(this);
+    this.rememberModal = this.rememberModal.bind(this);
   }
 
-  createAddTodoModal() {
+  todoModal() {
     const { dispatch } = this.props;
     render(
       <Modal options={{
@@ -21,6 +22,23 @@ export class App extends Component {
           title: 'ADD',
           onClick(text) {
             dispatch(addTodo(text));
+          }
+        }]
+      }}/>,
+      document.getElementById('modal')
+    );
+  }
+
+  rememberModal() {
+    const { dispatch } = this.props;
+    render(
+      <Modal options={{
+        title: 'Add remember',
+        placeholder: 'What do you want to remember?',
+        buttons: [{
+          title: 'ADD',
+          onClick(text) {
+            dispatch(addRemember(text));
           }
         }]
       }}/>,
@@ -40,12 +58,13 @@ export class App extends Component {
           <div className='item-with-icon just-hover-icon'>
             <h4>Do</h4>
             <span className='icon icon-plus light'
-            onClick={this.createAddTodoModal}></span>
+            onClick={this.todoModal}></span>
           </div>
           <TodoList todos={todos} dispatch={dispatch}/>
           <div className='item-with-icon just-hover-icon'>
             <h4>Remember</h4>
-            <span className='icon icon-plus light'></span>
+            <span className='icon icon-plus light'
+            onClick={this.rememberModal}></span>
           </div>
           <ul className='subitem'>
             <RememberList remembers={remembers}/>
