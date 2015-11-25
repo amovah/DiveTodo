@@ -11,8 +11,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
 var _reactRedux = require('react-redux');
 
 var _todolist = require('./todolist');
@@ -57,32 +55,32 @@ var App = exports.App = (function (_Component) {
     value: function todoModal() {
       var dispatch = this.props.dispatch;
 
-      (0, _reactDom.render)(_react2.default.createElement(_modal2.default, { options: {
-          title: 'Add todo',
-          placeholder: 'What is your todo?',
-          buttons: [{
-            title: 'ADD',
-            onClick: function onClick(text) {
-              dispatch((0, _actions.addTodo)(text));
-            }
-          }]
-        } }), document.getElementById('modal'));
+      (0, _modal2.default)({
+        title: 'Add todo',
+        placeholder: 'What is your todo?',
+        buttons: [{
+          title: 'ADD',
+          onClick: function onClick(text) {
+            dispatch((0, _actions.addTodo)(text));
+          }
+        }]
+      });
     }
   }, {
     key: 'rememberModal',
     value: function rememberModal() {
       var dispatch = this.props.dispatch;
 
-      (0, _reactDom.render)(_react2.default.createElement(_modal2.default, { options: {
-          title: 'Add remember',
-          placeholder: 'What do you want to remember?',
-          buttons: [{
-            title: 'ADD',
-            onClick: function onClick(text) {
-              dispatch((0, _actions.addRemember)(text));
-            }
-          }]
-        } }), document.getElementById('modal'));
+      (0, _modal2.default)({
+        title: 'Add remember',
+        placeholder: 'What do you want to remember?',
+        buttons: [{
+          title: 'ADD',
+          onClick: function onClick(text) {
+            dispatch((0, _actions.addRemember)(text));
+          }
+        }]
+      });
     }
   }, {
     key: 'render',

@@ -9,12 +9,14 @@ exports.removeTodo = removeTodo;
 exports.completeTodo = completeTodo;
 exports.uncompleteTodo = uncompleteTodo;
 exports.addRemember = addRemember;
+exports.editTodo = editTodo;
 var ADD_TODO = exports.ADD_TODO = 'ADD_TODO';
 var LOAD_TODO = exports.LOAD_TODO = 'LOAD_TOOD';
 var REMOVE_TODO = exports.REMOVE_TODO = 'REMOVE_TODO';
 var COMPLETE_TODO = exports.COMPLETE_TODO = 'COMPLETE_TODO';
 var UNCOMPLETE_TODO = exports.UNCOMPLETE_TODO = 'UNCOMPLETE_TODO';
 var ADD_REMEMBER = exports.ADD_REMEMBER = 'ADD_REMEMBER';
+var EDIT_TODO = exports.EDIT_TODO = 'EDIT_TODO';
 
 function addTodo(text) {
   return { type: ADD_TODO, text: text };
@@ -38,4 +40,8 @@ function uncompleteTodo(index) {
 
 function addRemember(text) {
   return { type: ADD_REMEMBER, text: text };
+}
+
+function editTodo(text, index) {
+  return { type: EDIT_TODO, text: text, index: index };
 }

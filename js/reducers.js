@@ -40,6 +40,14 @@ function todos(state = [], action) {
         }),
         ...state.slice(action.index + 1)
       ];
+    case actions.EDIT_TODO:
+      return [
+        ...state.slice(0, action.index),
+        Object.assign({}, state[action.index], {
+          text: action.text
+        }),
+        ...state.slice(action.index + 1)
+      ];
     default:
       return state;
   }

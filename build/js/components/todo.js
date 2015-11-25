@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _modal = require('./modal');
+
+var _modal2 = _interopRequireDefault(_modal);
+
 var _actions = require('../actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -35,9 +39,26 @@ var Todo = (function (_Component) {
       this.props.completed ? dispatch((0, _actions.uncompleteTodo)(this.props.index)) : dispatch((0, _actions.completeTodo)(this.props.index));
     }
   }, {
+    key: 'editTodo',
+    value: function editTodo(dispatch) {
+      var _this2 = this;
+
+      (0, _modal2.default)({
+        title: 'Edit todo',
+        value: this.props.children,
+        buttons: [{
+          title: 'EDIT',
+          onClick: (function (text, closeModal) {
+            dispatch((0, _actions.editTodo)(text, _this2.props.index));
+            closeModal();
+          }).bind(this)
+        }]
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         'li',
@@ -45,7 +66,7 @@ var Todo = (function (_Component) {
         _react2.default.createElement(
           'p',
           { onClick: function onClick() {
-              return _this2.toggleComplete(_this2.props.dispatch);
+              return _this3.toggleComplete(_this3.props.dispatch);
             },
             style: {
               textDecoration: this.props.completed ? 'line-through' : 'none'
@@ -57,9 +78,12 @@ var Todo = (function (_Component) {
           null,
           _react2.default.createElement('span', { className: 'icon light icon-x',
             onClick: function onClick() {
-              return _this2.props.dispatch((0, _actions.removeTodo)(_this2.props.index));
+              return _this3.props.dispatch((0, _actions.removeTodo)(_this3.props.index));
             } }),
-          _react2.default.createElement('span', { className: 'icon light icon-pencil' })
+          _react2.default.createElement('span', { className: 'icon light icon-pencil',
+            onClick: function onClick() {
+              return _this3.editTodo(_this3.props.dispatch);
+            } })
         )
       );
     }

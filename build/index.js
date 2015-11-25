@@ -12,13 +12,7 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
   var window = new BrowserWindow({ width: 1000, height: 800 });
 
-  window.webContents.openDevTools();
-
   window.loadURL('file:///' + __dirname + '/index.html');
 
-  var template = [];
-
-  var menu = Menu.buildFromTemplate(template);
-
-  // Menu.setApplicationMenu(menu);
+  Menu.setApplicationMenu(null);
 });

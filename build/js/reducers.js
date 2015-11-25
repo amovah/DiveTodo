@@ -39,6 +39,10 @@ function todos() {
       return [].concat(_toConsumableArray(state.slice(0, action.index)), [Object.assign({}, state[action.index], {
         completed: false
       })], _toConsumableArray(state.slice(action.index + 1)));
+    case actions.EDIT_TODO:
+      return [].concat(_toConsumableArray(state.slice(0, action.index)), [Object.assign({}, state[action.index], {
+        text: action.text
+      })], _toConsumableArray(state.slice(action.index + 1)));
     default:
       return state;
   }

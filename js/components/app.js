@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import TodoList from './todolist';
 import RememberList from './rememberlist';
-import Modal from './modal';
+import modal from './modal';
 import { addTodo, addRemember } from '../actions';
 
 export class App extends Component {
@@ -14,36 +13,30 @@ export class App extends Component {
 
   todoModal() {
     const { dispatch } = this.props;
-    render(
-      <Modal options={{
-        title: 'Add todo',
-        placeholder: 'What is your todo?',
-        buttons: [{
-          title: 'ADD',
-          onClick(text) {
-            dispatch(addTodo(text));
-          }
-        }]
-      }}/>,
-      document.getElementById('modal')
-    );
+    modal({
+      title: 'Add todo',
+      placeholder: 'What is your todo?',
+      buttons: [{
+        title: 'ADD',
+        onClick(text) {
+          dispatch(addTodo(text));
+        }
+      }]
+    });
   }
 
   rememberModal() {
     const { dispatch } = this.props;
-    render(
-      <Modal options={{
-        title: 'Add remember',
-        placeholder: 'What do you want to remember?',
-        buttons: [{
-          title: 'ADD',
-          onClick(text) {
-            dispatch(addRemember(text));
-          }
-        }]
-      }}/>,
-      document.getElementById('modal')
-    );
+    modal({
+      title: 'Add remember',
+      placeholder: 'What do you want to remember?',
+      buttons: [{
+        title: 'ADD',
+        onClick(text) {
+          dispatch(addRemember(text));
+        }
+      }]
+    });
   }
 
   render() {

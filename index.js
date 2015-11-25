@@ -12,13 +12,7 @@ app.on('window-all-closed', () => {
 app.on('ready', () => {
   let window = new BrowserWindow({width: 1000, height: 800});
 
-  window.webContents.openDevTools();
-
   window.loadURL(`file:///${__dirname}/index.html`);
 
-  let template = [];
-
-  let menu = Menu.buildFromTemplate(template);
-
-  // Menu.setApplicationMenu(menu);
+  Menu.setApplicationMenu(null);
 });

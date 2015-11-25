@@ -40,6 +40,11 @@ var Modal = (function (_Component) {
       }).bind(this), 400);
     }
   }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.closeModal = this.closeModal.bind(this);
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _this3 = this;
@@ -54,7 +59,7 @@ var Modal = (function (_Component) {
     key: 'handleClick',
     value: function handleClick(action) {
       var node = this.refs.input;
-      action(node.value);
+      action(node.value, this.closeModal);
       node.value = '';
     }
   }, {
@@ -92,7 +97,7 @@ var Modal = (function (_Component) {
             options.title
           ),
           _react2.default.createElement('input', { type: 'text', placeholder: options.placeholder, ref: 'input',
-            value: options.value })
+            defaultValue: options.value })
         ),
         _react2.default.createElement(
           'div',
@@ -106,4 +111,6 @@ var Modal = (function (_Component) {
   return Modal;
 })(_react.Component);
 
-exports.default = Modal;
+exports.default = function (options) {
+  (0, _reactDom.render)(_react2.default.createElement(Modal, { options: options }), document.getElementById('modal'));
+};

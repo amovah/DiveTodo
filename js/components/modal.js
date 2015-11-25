@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { unmountComponentAtNode } from 'react-dom';
+import { unmountComponentAtNode, render } from 'react-dom';
 
-export default class Modal extends Component {
+class Modal extends Component {
   closeModal() {
     this.refs.modal.classList.remove('active');
     setTimeout((() => {
       unmountComponentAtNode(this.refs.modal.parentNode);
     }).bind(this), 400);
+  }
+
+  componentWillMount() {
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -19,7 +23,7 @@ export default class Modal extends Component {
 
   handleClick(action) {
     let node = this.refs.input;
-    action(node.value);
+    action(node.value, this.closeModal);
     node.value = '';
   }
 
@@ -40,7 +44,7 @@ export default class Modal extends Component {
         <div className='modal-content'>
           <h4>{options.title}</h4>
           <input type='text' placeholder={options.placeholder} ref='input'
-          value={options.value}/>
+          defaultValue={options.value}/>
         </div>
         <div className='modal-footer'>
           {buttons}
@@ -49,3 +53,10 @@ export default class Modal extends Component {
     );
   }
 }
+
+export default (options) => {
+  render(
+    <Modal options={options} />,
+    document.getElementById('modal')
+  );
+};

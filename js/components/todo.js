@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
-import { removeTodo, completeTodo, uncompleteTodo } from '../actions';
+import modal from './modal';
+import { removeTodo, completeTodo, uncompleteTodo, editTodo } from '../actions';
 
 export default class Todo extends Component {
   toggleComplete(dispatch) {
     this.props.completed ?
     dispatch(uncompleteTodo(this.props.index)) :
     dispatch(completeTodo(this.props.index));
+  }
+
+  editTodo(dispatch) {
+    modal({
+      title: 'Edit todo',
+      value: this.props.children,
+      buttons: [{
+        title: 'EDIT',
+        onClick: ((text, closeModal) => {
+          dispatch(editTodo(text, this.props.index));
+          closeModal();
+        }).bind(this)
+      }]
+    });
   }
 
   render() {
@@ -20,7 +35,8 @@ export default class Todo extends Component {
           <span className='icon light icon-x'
           onClick={() => this.props.dispatch(removeTodo(this.props.index))}>
           </span>
-          <span className='icon light icon-pencil'></span>
+          <span className='icon light icon-pencil'
+          onClick={() => this.editTodo(this.props.dispatch)}></span>
         </div>
       </li>
     );
