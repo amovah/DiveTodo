@@ -10,6 +10,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _actions = require('../actions');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30,6 +32,8 @@ var Remember = (function (_Component) {
   _createClass(Remember, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'li',
         { className: 'item-with-icon hover-icon' },
@@ -41,7 +45,10 @@ var Remember = (function (_Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement('span', { className: 'icon light icon-x' }),
+          _react2.default.createElement('span', { className: 'icon light icon-x',
+            onClick: function onClick() {
+              return _this2.props.dispatch((0, _actions.removeRemember)(_this2.props.index));
+            } }),
           _react2.default.createElement('span', { className: 'icon light icon-pencil' })
         )
       );

@@ -132,7 +132,7 @@ var App = exports.App = (function (_Component) {
           _react2.default.createElement(
             'ul',
             { className: 'subitem' },
-            _react2.default.createElement(_rememberlist2.default, { remembers: remembers })
+            _react2.default.createElement(_rememberlist2.default, { remembers: remembers, dispatch: dispatch })
           )
         )
       );
