@@ -60,6 +60,11 @@ function remembers(state = [], action) {
         ...state,
         action.text
       ];
+    case actions.REMOVE_REMEMBER:
+      return [
+        ...state.slice(0, action.index),
+        ...state.slice(action.index + 1)
+      ];
     default:
       return state;
   }

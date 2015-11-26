@@ -60,7 +60,7 @@ export class App extends Component {
             onClick={this.rememberModal}></span>
           </div>
           <ul className='subitem'>
-            <RememberList remembers={remembers}/>
+            <RememberList remembers={remembers} dispatch={dispatch}/>
           </ul>
         </div>
       </div>

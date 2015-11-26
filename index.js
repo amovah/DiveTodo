@@ -14,5 +14,5 @@ app.on('ready', () => {
 
   window.loadURL(`file:///${__dirname}/index.html`);
 
-  Menu.setApplicationMenu(null);
+  // Menu.setApplicationMenu(null);
 });

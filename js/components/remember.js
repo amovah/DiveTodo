@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { removeRemember } from '../actions';
 
 export default class Remember extends Component {
   render() {
@@ -6,7 +7,9 @@ export default class Remember extends Component {
       <li className='item-with-icon hover-icon'>
         <p>{this.props.children}</p>
         <div>
-          <span className='icon light icon-x'></span>
+          <span className='icon light icon-x'
+          onClick={() => this.props.dispatch(removeRemember(this.props.index))}>
+          </span>
           <span className='icon light icon-pencil'></span>
         </div>
       </li>
