@@ -6,7 +6,9 @@ var electron = require('electron'),
     Menu = electron.Menu;
 
 app.on('window-all-closed', function () {
-  app.quit();
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 });
 
 app.on('ready', function () {
@@ -14,5 +16,5 @@ app.on('ready', function () {
 
   window.loadURL('file:///' + __dirname + '/index.html');
 
-  // Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(null);
 });
