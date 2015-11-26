@@ -65,6 +65,12 @@ function remembers(state = [], action) {
         ...state.slice(0, action.index),
         ...state.slice(action.index + 1)
       ];
+    case actions.EDIT_REMEMBER:
+      return [
+        ...state.slice(0, action.index),
+        action.text,
+        ...state.slice(action.index + 1)
+      ];
     default:
       return state;
   }

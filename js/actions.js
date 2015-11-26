@@ -6,6 +6,7 @@ export const UNCOMPLETE_TODO = 'UNCOMPLETE_TODO';
 export const ADD_REMEMBER = 'ADD_REMEMBER';
 export const EDIT_TODO = 'EDIT_TODO';
 export const REMOVE_REMEMBER = 'REMOVE_REMEMBER';
+export const EDIT_REMEMBER = 'EDIT_REMEMBER';
 
 export function addTodo(text) {
   return { type: ADD_TODO, text };
@@ -37,4 +38,8 @@ export function editTodo(text, index) {
 
 export function removeRemember(index) {
   return { type: REMOVE_REMEMBER, index };
+}
+
+export function editRemember(text, index) {
+  return { type: EDIT_REMEMBER, text, index };
 }

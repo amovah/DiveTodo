@@ -12,6 +12,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _actions = require('../actions');
 
+var _modal = require('./modal');
+
+var _modal2 = _interopRequireDefault(_modal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30,9 +34,26 @@ var Remember = (function (_Component) {
   }
 
   _createClass(Remember, [{
+    key: 'editRemember',
+    value: function editRemember(dispatch) {
+      var _this2 = this;
+
+      (0, _modal2.default)({
+        title: 'Edit remember',
+        value: this.props.children,
+        buttons: [{
+          title: 'EDIT',
+          onClick: (function (text, closeModal) {
+            dispatch((0, _actions.editRemember)(text, _this2.props.index));
+            closeModal();
+          }).bind(this)
+        }]
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         'li',
@@ -47,9 +68,12 @@ var Remember = (function (_Component) {
           null,
           _react2.default.createElement('span', { className: 'icon light icon-x',
             onClick: function onClick() {
-              return _this2.props.dispatch((0, _actions.removeRemember)(_this2.props.index));
+              return _this3.props.dispatch((0, _actions.removeRemember)(_this3.props.index));
             } }),
-          _react2.default.createElement('span', { className: 'icon light icon-pencil' })
+          _react2.default.createElement('span', { className: 'icon light icon-pencil',
+            onClick: function onClick() {
+              return _this3.editRemember(_this3.props.dispatch);
+            } })
         )
       );
     }

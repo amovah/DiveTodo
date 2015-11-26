@@ -57,6 +57,8 @@ function remembers() {
       return [].concat(_toConsumableArray(state), [action.text]);
     case actions.REMOVE_REMEMBER:
       return [].concat(_toConsumableArray(state.slice(0, action.index)), _toConsumableArray(state.slice(action.index + 1)));
+    case actions.EDIT_REMEMBER:
+      return [].concat(_toConsumableArray(state.slice(0, action.index)), [action.text], _toConsumableArray(state.slice(action.index + 1)));
     default:
       return state;
   }
