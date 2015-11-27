@@ -28,7 +28,8 @@ module.exports = function(grunt) {
           'build/index.html': 'index.html',
           'build/package.json': 'package.json',
           'build/js/index.js': 'forBuild/index.js',
-          'build/database.json': 'database.json'
+          'build/database.json': 'database.json',
+          'build/css/calendar.css': 'node_modules/rc-calendar/assets/index.css'
         }]
       }
     },
