@@ -26,62 +26,96 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_reducers2.default);
-
-var _iteratorNormalCompletion = true;
-var _didIteratorError = false;
-var _iteratorError = undefined;
-
-try {
-  for (var _iterator = _database2.default.todos[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-    var item = _step.value;
-
-    store.dispatch(actions.loadTodo(item));
-  }
-} catch (err) {
-  _didIteratorError = true;
-  _iteratorError = err;
-} finally {
-  try {
-    if (!_iteratorNormalCompletion && _iterator.return) {
-      _iterator.return();
-    }
-  } finally {
-    if (_didIteratorError) {
-      throw _iteratorError;
-    }
-  }
-}
-
-var _iteratorNormalCompletion2 = true;
-var _didIteratorError2 = false;
-var _iteratorError2 = undefined;
-
-try {
-  for (var _iterator2 = _database2.default.remembers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-    var item = _step2.value;
-
-    store.dispatch(actions.addRemember(item));
-  }
-} catch (err) {
-  _didIteratorError2 = true;
-  _iteratorError2 = err;
-} finally {
-  try {
-    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-      _iterator2.return();
-    }
-  } finally {
-    if (_didIteratorError2) {
-      throw _iteratorError2;
-    }
-  }
-}
-
-store.subscribe(function () {
-  var data = JSON.stringify(store.getState(), null, 2);
+function save(database, state) {
+  database[state.date] = state;
+  var data = JSON.stringify(database, null, 2);
   var dir = __dirname.split('/').slice(0, -1).join('/');
   _fs2.default.writeFileSync(dir + '/database.json', data);
+}
+
+function init(database, date) {
+  database[date] = {};
+  database[date].todos = [];
+  database[date].remembers = [];
+}
+
+function runTask(store, data) {
+  for (var section in data) {
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = data[section].database[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var item = _step.value;
+
+        store.dispatch(data[section].action(item));
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+  }
+}
+
+var store = (0, _redux.createStore)(_reducers2.default),
+    now = store.getState().date;
+
+if (!_database2.default[now]) {
+  init(_database2.default, now);
+  save(_database2.default, store.getState());
+} else {
+  runTask(store, {
+    todos: {
+      database: _database2.default[now].todos,
+      action: actions.loadTodo
+    },
+    remembers: {
+      database: _database2.default[now].remembers,
+      action: actions.addRemember
+    }
+  });
+}
+
+var tempDate = now,
+    clearState = undefined;
+
+store.subscribe(function () {
+  var state = store.getState();
+  if (state.date !== tempDate) {
+    tempDate = state.date;
+    clearState = true;
+    store.dispatch(actions.clear());
+
+    if (_database2.default[state.date]) {
+      runTask(store, {
+        todos: {
+          database: _database2.default[state.date].todos,
+          action: actions.loadTodo
+        },
+        remembers: {
+          database: _database2.default[state.date].remembers,
+          action: actions.addRemember
+        }
+      });
+    } else {
+      init(_database2.default, state.date);
+    }
+  } else if (!clearState) {
+    save(_database2.default, state);
+  } else {
+    clearState = false;
+  }
 });
 
 exports.default = store;

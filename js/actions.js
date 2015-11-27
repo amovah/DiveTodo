@@ -7,6 +7,8 @@ export const ADD_REMEMBER = 'ADD_REMEMBER';
 export const EDIT_TODO = 'EDIT_TODO';
 export const REMOVE_REMEMBER = 'REMOVE_REMEMBER';
 export const EDIT_REMEMBER = 'EDIT_REMEMBER';
+export const CHANGE_DATE = 'CHANGE_DATE';
+export const CLEAR = 'CLEAR';
 
 export function addTodo(text) {
   return { type: ADD_TODO, text };
@@ -42,4 +44,12 @@ export function removeRemember(index) {
 
 export function editRemember(text, index) {
   return { type: EDIT_REMEMBER, text, index };
+}
+
+export function changeDate(date) {
+  return { type: CHANGE_DATE, date };
+}
+
+export function clear() {
+  return { type: CLEAR };
 }

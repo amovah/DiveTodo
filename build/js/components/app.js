@@ -27,6 +27,10 @@ var _modal2 = _interopRequireDefault(_modal);
 
 var _actions = require('../actions');
 
+var _rcCalendar = require('rc-calendar');
+
+var _rcCalendar2 = _interopRequireDefault(_rcCalendar);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49,6 +53,8 @@ var App = exports.App = (function (_Component) {
     value: function componentWillMount() {
       this.todoModal = this.todoModal.bind(this);
       this.rememberModal = this.rememberModal.bind(this);
+      this.showCalendar = this.showCalendar.bind(this);
+      this.onSelect = this.onSelect.bind(this);
     }
   }, {
     key: 'todoModal',
@@ -83,12 +89,24 @@ var App = exports.App = (function (_Component) {
       });
     }
   }, {
+    key: 'showCalendar',
+    value: function showCalendar() {
+      this.refs.calendar.classList.add('active');
+    }
+  }, {
+    key: 'onSelect',
+    value: function onSelect(date) {
+      this.props.dispatch((0, _actions.changeDate)(date.getTime()));
+      this.refs.calendar.classList.remove('active');
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props;
       var dispatch = _props.dispatch;
       var todos = _props.todos;
       var remembers = _props.remembers;
+      var date = _props.date;
 
       return _react2.default.createElement(
         'div',
@@ -99,9 +117,9 @@ var App = exports.App = (function (_Component) {
           _react2.default.createElement(
             'h4',
             null,
-            'Today'
+            date
           ),
-          _react2.default.createElement('span', { className: 'icon icon-calendar' })
+          _react2.default.createElement('span', { className: 'icon icon-calendar', onClick: this.showCalendar })
         ),
         _react2.default.createElement(
           'div',
@@ -134,6 +152,11 @@ var App = exports.App = (function (_Component) {
             { className: 'subitem' },
             _react2.default.createElement(_rememberlist2.default, { remembers: remembers, dispatch: dispatch })
           )
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'datepicker', ref: 'calendar' },
+          _react2.default.createElement(_rcCalendar2.default, { onSelect: this.onSelect })
         )
       );
     }

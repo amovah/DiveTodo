@@ -48,6 +48,8 @@ function todos(state = [], action) {
         }),
         ...state.slice(action.index + 1)
       ];
+    case actions.CLEAR:
+      return [];
     default:
       return state;
   }
@@ -71,6 +73,21 @@ function remembers(state = [], action) {
         action.text,
         ...state.slice(action.index + 1)
       ];
+    case actions.CLEAR:
+      return [];
+    default:
+      return state;
+  }
+}
+
+const convert = (date) =>
+  new Date(date).toString().split(' ').slice(1, 4).join(' ');
+
+function date(state = convert(new Date()), action) {
+  console.log(state, action.type);
+  switch (action.type) {
+    case actions.CHANGE_DATE:
+      return convert(action.date);
     default:
       return state;
   }
@@ -78,7 +95,8 @@ function remembers(state = [], action) {
 
 const todoApp = combineReducers({
   todos,
-  remembers
+  remembers,
+  date
 });
 
 export default todoApp;

@@ -43,6 +43,8 @@ function todos() {
       return [].concat(_toConsumableArray(state.slice(0, action.index)), [Object.assign({}, state[action.index], {
         text: action.text
       })], _toConsumableArray(state.slice(action.index + 1)));
+    case actions.CLEAR:
+      return [];
     default:
       return state;
   }
@@ -59,6 +61,25 @@ function remembers() {
       return [].concat(_toConsumableArray(state.slice(0, action.index)), _toConsumableArray(state.slice(action.index + 1)));
     case actions.EDIT_REMEMBER:
       return [].concat(_toConsumableArray(state.slice(0, action.index)), [action.text], _toConsumableArray(state.slice(action.index + 1)));
+    case actions.CLEAR:
+      return [];
+    default:
+      return state;
+  }
+}
+
+var convert = function convert(date) {
+  return new Date(date).toString().split(' ').slice(1, 4).join(' ');
+};
+
+function date() {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? convert(new Date()) : arguments[0];
+  var action = arguments[1];
+
+  console.log(state, action.type);
+  switch (action.type) {
+    case actions.CHANGE_DATE:
+      return convert(action.date);
     default:
       return state;
   }
@@ -66,7 +87,8 @@ function remembers() {
 
 var todoApp = (0, _redux.combineReducers)({
   todos: todos,
-  remembers: remembers
+  remembers: remembers,
+  date: date
 });
 
 exports.default = todoApp;

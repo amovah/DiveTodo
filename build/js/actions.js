@@ -12,6 +12,8 @@ exports.addRemember = addRemember;
 exports.editTodo = editTodo;
 exports.removeRemember = removeRemember;
 exports.editRemember = editRemember;
+exports.changeDate = changeDate;
+exports.clear = clear;
 var ADD_TODO = exports.ADD_TODO = 'ADD_TODO';
 var LOAD_TODO = exports.LOAD_TODO = 'LOAD_TOOD';
 var REMOVE_TODO = exports.REMOVE_TODO = 'REMOVE_TODO';
@@ -21,6 +23,8 @@ var ADD_REMEMBER = exports.ADD_REMEMBER = 'ADD_REMEMBER';
 var EDIT_TODO = exports.EDIT_TODO = 'EDIT_TODO';
 var REMOVE_REMEMBER = exports.REMOVE_REMEMBER = 'REMOVE_REMEMBER';
 var EDIT_REMEMBER = exports.EDIT_REMEMBER = 'EDIT_REMEMBER';
+var CHANGE_DATE = exports.CHANGE_DATE = 'CHANGE_DATE';
+var CLEAR = exports.CLEAR = 'CLEAR';
 
 function addTodo(text) {
   return { type: ADD_TODO, text: text };
@@ -56,4 +60,12 @@ function removeRemember(index) {
 
 function editRemember(text, index) {
   return { type: EDIT_REMEMBER, text: text, index: index };
+}
+
+function changeDate(date) {
+  return { type: CHANGE_DATE, date: date };
+}
+
+function clear() {
+  return { type: CLEAR };
 }
