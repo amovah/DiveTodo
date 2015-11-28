@@ -76,7 +76,6 @@ function date() {
   var state = arguments.length <= 0 || arguments[0] === undefined ? convert(new Date()) : arguments[0];
   var action = arguments[1];
 
-  console.log(state, action.type);
   switch (action.type) {
     case actions.CHANGE_DATE:
       return convert(action.date);

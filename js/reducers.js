@@ -84,7 +84,6 @@ const convert = (date) =>
   new Date(date).toString().split(' ').slice(1, 4).join(' ');
 
 function date(state = convert(new Date()), action) {
-  console.log(state, action.type);
   switch (action.type) {
     case actions.CHANGE_DATE:
       return convert(action.date);

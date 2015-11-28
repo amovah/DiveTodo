@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import TodoList from './todolist';
 import RememberList from './rememberlist';
 import modal from './modal';
+import DayPicker from './daypicker';
 import { addTodo, addRemember, changeDate } from '../actions';
-import Calendar from 'rc-calendar';
 
 export class App extends Component {
   componentWillMount() {
@@ -46,7 +46,7 @@ export class App extends Component {
     this.refs.calendar.classList.add('active');
   }
 
-  onSelect(date) {
+  onSelect(e, date) {
     this.props.dispatch(changeDate(date.getTime()));
     this.refs.calendar.classList.remove('active');
   }
@@ -55,30 +55,35 @@ export class App extends Component {
     const { dispatch, todos, remembers, date } = this.props;
     return (
       <div>
+
         <div className='item-with-icon'>
           <h4>{date}</h4>
           <span className='icon icon-calendar' onClick={this.showCalendar}>
           </span>
         </div>
+
         <div className='subitem'>
+
           <div className='item-with-icon just-hover-icon'>
             <h4>Do</h4>
             <span className='icon icon-plus light'
             onClick={this.todoModal}></span>
           </div>
           <TodoList todos={todos} dispatch={dispatch}/>
+
           <div className='item-with-icon just-hover-icon'>
             <h4>Remember</h4>
             <span className='icon icon-plus light'
             onClick={this.rememberModal}></span>
           </div>
-          <ul className='subitem'>
-            <RememberList remembers={remembers} dispatch={dispatch}/>
-          </ul>
+          <RememberList remembers={remembers} dispatch={dispatch}/>
+
         </div>
-        <div id='datepicker' ref='calendar'>
-          <Calendar onSelect={this.onSelect}/>
+
+        <div id='daypicker' ref='calendar'>
+          <DayPicker onSelect={this.onSelect}/>
         </div>
+
       </div>
     );
   }

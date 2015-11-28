@@ -22,4 +22,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   _reactRedux.Provider,
   { store: _stores2.default },
   _react2.default.createElement(_app2.default, null)
-), document.getElementById('todo-section'));
+), document.getElementById('app'));

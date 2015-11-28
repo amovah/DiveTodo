@@ -25,11 +25,11 @@ var _modal = require('./modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
+var _daypicker = require('./daypicker');
+
+var _daypicker2 = _interopRequireDefault(_daypicker);
+
 var _actions = require('../actions');
-
-var _rcCalendar = require('rc-calendar');
-
-var _rcCalendar2 = _interopRequireDefault(_rcCalendar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -95,7 +95,7 @@ var App = exports.App = (function (_Component) {
     }
   }, {
     key: 'onSelect',
-    value: function onSelect(date) {
+    value: function onSelect(e, date) {
       this.props.dispatch((0, _actions.changeDate)(date.getTime()));
       this.refs.calendar.classList.remove('active');
     }
@@ -147,16 +147,12 @@ var App = exports.App = (function (_Component) {
             _react2.default.createElement('span', { className: 'icon icon-plus light',
               onClick: this.rememberModal })
           ),
-          _react2.default.createElement(
-            'ul',
-            { className: 'subitem' },
-            _react2.default.createElement(_rememberlist2.default, { remembers: remembers, dispatch: dispatch })
-          )
+          _react2.default.createElement(_rememberlist2.default, { remembers: remembers, dispatch: dispatch })
         ),
         _react2.default.createElement(
           'div',
-          { id: 'datepicker', ref: 'calendar' },
-          _react2.default.createElement(_rcCalendar2.default, { onSelect: this.onSelect })
+          { id: 'daypicker', ref: 'calendar' },
+          _react2.default.createElement(_daypicker2.default, { onSelect: this.onSelect })
         )
       );
     }

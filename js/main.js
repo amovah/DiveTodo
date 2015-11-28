@@ -8,5 +8,5 @@ render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('todo-section')
+  document.getElementById('app')
 );
