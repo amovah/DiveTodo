@@ -27,7 +27,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function save(database, state) {
-  database[state.date] = state;
+  var tempState = Object.assign({}, state);
+  delete tempState.date;
+  database[state.date] = tempState;
   var data = JSON.stringify(database, null, 2);
   var dir = __dirname.split('/').slice(0, -1).join('/');
   _fs2.default.writeFileSync(dir + '/database.json', data);
@@ -39,7 +41,19 @@ function init(database, date) {
   database[date].remembers = [];
 }
 
-function runTask(store, data) {
+function loadData(store, actions, database) {
+  var now = store.getState().date,
+      data = {
+    todos: {
+      database: database[now].todos,
+      action: actions.loadTodo
+    },
+    remembers: {
+      database: database[now].remembers,
+      action: actions.addRemember
+    }
+  };
+
   for (var section in data) {
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
@@ -69,26 +83,15 @@ function runTask(store, data) {
 }
 
 var store = (0, _redux.createStore)(_reducers2.default),
-    now = store.getState().date;
+    tempDate = store.getState().date,
+    clearState = undefined;
 
-if (!_database2.default[now]) {
-  init(_database2.default, now);
+if (!_database2.default[tempDate]) {
+  init(_database2.default, tempDate);
   save(_database2.default, store.getState());
 } else {
-  runTask(store, {
-    todos: {
-      database: _database2.default[now].todos,
-      action: actions.loadTodo
-    },
-    remembers: {
-      database: _database2.default[now].remembers,
-      action: actions.addRemember
-    }
-  });
+  loadData(store, actions, _database2.default);
 }
-
-var tempDate = now,
-    clearState = undefined;
 
 store.subscribe(function () {
   var state = store.getState();
@@ -98,16 +101,7 @@ store.subscribe(function () {
     store.dispatch(actions.clear());
 
     if (_database2.default[state.date]) {
-      runTask(store, {
-        todos: {
-          database: _database2.default[state.date].todos,
-          action: actions.loadTodo
-        },
-        remembers: {
-          database: _database2.default[state.date].remembers,
-          action: actions.addRemember
-        }
-      });
+      loadData(store, actions, _database2.default);
     } else {
       init(_database2.default, state.date);
     }
