@@ -23,3 +23,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   { store: _stores2.default },
   _react2.default.createElement(_app2.default, null)
 ), document.getElementById('app'));
+
+var date = new Date();
+
+function notify() {
+  var now = date.toString().split(' ').slice(1, 4).join(' '),
+      todos = require(__dirname.split('/').slice(0, -1).join('/') + '/database.json')[now].todos;
+
+  if (!todos.every(function (item) {
+    return item.completed;
+  })) {
+    var uncompletedTodos = todos.filter(function (item) {
+      return !item.completed;
+    }).length;
+    new Notification('DiveTodo', {
+      body: 'Hurry up, You have ' + uncompletedTodos + ' uncompleted todo(s) :('
+    });
+  }
+}
+
+setTimeout(notify, 20 - date.getHours());
