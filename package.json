@@ -1,6 +1,6 @@
 {
   "name": "divetodo",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "description": "Design your days and dive to them",
   "main": "index.js",
   "scripts": {
