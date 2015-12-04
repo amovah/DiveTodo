@@ -42,4 +42,4 @@ function notify() {
   }
 }
 
-setTimeout(notify, 20 - date.getHours());
+setTimeout(notify, (20 - date.getHours()) * 1000 * 60 * 60);
