@@ -22,15 +22,15 @@ function init(database, date) {
 function loadData(store, actions, database) {
   let now = store.getState().date,
       data = {
-    todos: {
-      database: database[now].todos,
-      action: actions.loadTodo
-    },
-    remembers: {
-      database: database[now].remembers,
-      action: actions.addRemember
-    }
-  };
+        todos: {
+          database: database[now].todos,
+          action: actions.loadTodo
+        },
+        remembers: {
+          database: database[now].remembers,
+          action: actions.addRemember
+        }
+      };
 
   for (let section in data)
     for (let item of data[section].database)

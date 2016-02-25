@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './components/app';
-import store from './stores';
+import App from './js/components/app';
+import store from './js/stores';
 
 render(
   <Provider store={store}>
@@ -15,8 +15,7 @@ let date = new Date();
 
 function notify() {
   let now = date.toString().split(' ').slice(1, 4).join(' '),
-      todos = require(__dirname.split('/').slice(0, -1).join('/') +
-  '/database.json')[now].todos;
+      todos = require('./database.json')[now].todos;
 
   if (!todos.every(item => item.completed)) {
     let uncompletedTodos = todos.filter(item => !item.completed).length;
@@ -26,4 +25,4 @@ function notify() {
   }
 }
 
-setTimeout(notify, (20 - date.getHours() ) * 1000*60*60);
+setTimeout(notify, (20 - date.getHours() ) * 1000 * 60 * 60);

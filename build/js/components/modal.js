@@ -1,6 +1,6 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -20,7 +20,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Modal = (function (_Component) {
+var Modal = function (_Component) {
   _inherits(Modal, _Component);
 
   function Modal() {
@@ -35,9 +35,9 @@ var Modal = (function (_Component) {
       var _this2 = this;
 
       this.refs.modal.classList.remove('active');
-      setTimeout((function () {
+      setTimeout(function () {
         (0, _reactDom.unmountComponentAtNode)(_this2.refs.modal.parentNode);
-      }).bind(this), 400);
+      }.bind(this), 400);
     }
   }, {
     key: 'componentWillMount',
@@ -51,9 +51,9 @@ var Modal = (function (_Component) {
 
       // I don't why, but I need this little timeout function for it's animation
 
-      setTimeout((function () {
+      setTimeout(function () {
         _this3.refs.modal.classList.add('active');
-      }).bind(this), 50);
+      }.bind(this), 50);
     }
   }, {
     key: 'handleClick',
@@ -68,6 +68,7 @@ var Modal = (function (_Component) {
       var _this4 = this;
 
       var options = this.props.options;
+
 
       var buttons = options.buttons.map(function (item, index) {
         return _react2.default.createElement(
@@ -109,8 +110,10 @@ var Modal = (function (_Component) {
   }]);
 
   return Modal;
-})(_react.Component);
+}(_react.Component);
 
 exports.default = function (options) {
   (0, _reactDom.render)(_react2.default.createElement(Modal, { options: options }), document.getElementById('modal'));
 };
+
+module.exports = exports['default'];

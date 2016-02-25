@@ -113,3 +113,4 @@ store.subscribe(function () {
 });
 
 exports.default = store;
+module.exports = exports['default'];

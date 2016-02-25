@@ -91,3 +91,4 @@ var todoApp = (0, _redux.combineReducers)({
 });
 
 exports.default = todoApp;
+module.exports = exports['default'];
