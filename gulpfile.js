@@ -6,7 +6,8 @@ var less = require('gulp-less');
 
 gulp.task('lint', ['clean'], function() {
   return gulp.src('src/**/*.js')
-        .pipe(eslint());
+        .pipe(eslint())
+        .pipe(eslint.format());
 });
 
 gulp.task('clean', function() {
@@ -29,7 +30,7 @@ gulp.task('babel', ['clean'], function() {
         .pipe(gulp.dest('build/'));
 });
 
-gulp.task('less', ['clean'], function() {
+gulp.task('less', function() {
   return gulp.src('src/css/main.less')
         .pipe(less())
         .pipe(gulp.dest('build/css/'));

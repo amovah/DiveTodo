@@ -10,9 +10,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Remember = require('./Remember');
-
-var _Remember2 = _interopRequireDefault(_Remember);
+var _actions = require('../actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,24 +26,66 @@ var _class = function (_Component) {
   function _class() {
     _classCallCheck(this, _class);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(_class).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this));
+
+    _this.removeRemember = _this.removeRemember.bind(_this);
+    _this.editRemember = _this.editRemember.bind(_this);
+    return _this;
   }
 
   _createClass(_class, [{
-    key: 'render',
-    value: function render() {
+    key: 'removeRemember',
+    value: function removeRemember(id) {
+      this.props.dispatch((0, _actions.removeRemember)(id));
+    }
+  }, {
+    key: 'editRemember',
+    value: function editRemember(text, id) {
       var _this2 = this;
 
+      this.props.dispatch((0, _actions.showModal)({
+        title: 'Edit Remember',
+        defaultValue: text,
+        buttons: [{
+          title: 'EDIT',
+          onClick: function (input) {
+            _this2.props.dispatch((0, _actions.editRemember)(input.value, id));
+          }.bind(this)
+        }]
+      }));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      var remembers = this.props.remembers.map(function (item, index) {
+        return _react2.default.createElement(
+          'li',
+          { className: 'item-with-icon hover-icon', key: index },
+          _react2.default.createElement(
+            'p',
+            null,
+            item.text
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement('span', { className: 'icon light icon-x',
+              onClick: function onClick() {
+                _this3.removeRemember(item.id);
+              } }),
+            _react2.default.createElement('span', { className: 'icon light icon-pencil',
+              onClick: function onClick() {
+                return _this3.editRemember(item.text, item.id);
+              } })
+          )
+        );
+      });
       return _react2.default.createElement(
         'ul',
         { className: 'subitem' },
-        this.props.remembers.map(function (item, index) {
-          return _react2.default.createElement(
-            _Remember2.default,
-            { key: index, dispatch: _this2.props.dispatch },
-            item.text
-          );
-        })
+        remembers
       );
     }
   }]);

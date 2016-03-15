@@ -18,5 +18,5 @@ app.on('ready', function () {
 
   window.webContents.openDevTools();
 
-  Menu.setApplicationMenu(null);
+  // Menu.setApplicationMenu(null);
 });

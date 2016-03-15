@@ -12,8 +12,13 @@ exports.addRemember = addRemember;
 exports.editTodo = editTodo;
 exports.removeRemember = removeRemember;
 exports.editRemember = editRemember;
-exports.changeDate = changeDate;
-exports.clear = clear;
+exports.showModal = showModal;
+exports.hideModal = hideModal;
+exports.loadRemember = loadRemember;
+/**
+ * Constants
+ */
+
 var ADD_TODO = exports.ADD_TODO = 'ADD_TODO';
 var LOAD_TODO = exports.LOAD_TODO = 'LOAD_TOOD';
 var REMOVE_TODO = exports.REMOVE_TODO = 'REMOVE_TODO';
@@ -23,49 +28,69 @@ var ADD_REMEMBER = exports.ADD_REMEMBER = 'ADD_REMEMBER';
 var EDIT_TODO = exports.EDIT_TODO = 'EDIT_TODO';
 var REMOVE_REMEMBER = exports.REMOVE_REMEMBER = 'REMOVE_REMEMBER';
 var EDIT_REMEMBER = exports.EDIT_REMEMBER = 'EDIT_REMEMBER';
-var CHANGE_DATE = exports.CHANGE_DATE = 'CHANGE_DATE';
-var CLEAR = exports.CLEAR = 'CLEAR';
+var SHOW_MODAL = exports.SHOW_MODAL = 'SHOW_MODAL';
+var HIDE_MODAL = exports.HIDE_MODAL = 'HIDE_MODAL';
+var LOAD_REMEMBER = exports.LOAD_REMEMBER = 'LOAD_REMEMBER';
 
-function addTodo(text) {
-  return { type: ADD_TODO, text: text };
+/**
+ * Actions creators
+ */
+
+function addTodo(text, date) {
+  return { type: ADD_TODO, text: text, date: date };
 }
 
 function loadTodo(todo) {
-  return { type: LOAD_TODO, text: todo.text, completed: todo.completed };
+  return {
+    type: LOAD_TODO,
+    text: todo.text,
+    completed: todo.completed,
+    date: todo.date,
+    id: todo.id
+  };
 }
 
-function removeTodo(index) {
-  return { type: REMOVE_TODO, index: index };
+function removeTodo(id) {
+  return { type: REMOVE_TODO, id: id };
 }
 
-function completeTodo(index) {
-  return { type: COMPLETE_TODO, index: index };
+function completeTodo(id) {
+  return { type: COMPLETE_TODO, id: id };
 }
 
-function uncompleteTodo(index) {
-  return { type: UNCOMPLETE_TODO, index: index };
+function uncompleteTodo(id) {
+  return { type: UNCOMPLETE_TODO, id: id };
 }
 
-function addRemember(text) {
-  return { type: ADD_REMEMBER, text: text };
+function addRemember(text, date) {
+  return { type: ADD_REMEMBER, text: text, date: date };
 }
 
-function editTodo(text, index) {
-  return { type: EDIT_TODO, text: text, index: index };
+function editTodo(text, id) {
+  return { type: EDIT_TODO, text: text, id: id };
 }
 
-function removeRemember(index) {
-  return { type: REMOVE_REMEMBER, index: index };
+function removeRemember(id) {
+  return { type: REMOVE_REMEMBER, id: id };
 }
 
-function editRemember(text, index) {
-  return { type: EDIT_REMEMBER, text: text, index: index };
+function editRemember(text, id) {
+  return { type: EDIT_REMEMBER, text: text, id: id };
 }
 
-function changeDate(date) {
-  return { type: CHANGE_DATE, date: date };
+function showModal(modal) {
+  return { type: SHOW_MODAL, modal: modal };
 }
 
-function clear() {
-  return { type: CLEAR };
+function hideModal() {
+  return { type: HIDE_MODAL };
+}
+
+function loadRemember(remember) {
+  return {
+    type: LOAD_REMEMBER,
+    text: remember.text,
+    date: remember.date,
+    id: remember.id
+  };
 }

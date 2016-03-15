@@ -1,14 +1,23 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
+import { unique } from 'stringing';
 import * as actions from './actions';
+import { find } from './utils';
+
+/**
+ * Todos reducer
+ */
 
 function todos(state = [], action) {
-  switch (action.type) {
+  switch(action.type) {
     case actions.ADD_TODO:
       return [
         ...state,
         {
+          id: unique(32),
           text: action.text,
-          completed: false
+          completed: false,
+          date: action.date
         }
       ];
     case actions.LOAD_TODO:
@@ -16,86 +25,128 @@ function todos(state = [], action) {
         ...state,
         {
           text: action.text,
-          completed: action.completed
+          completed: action.completed,
+          date: action.date,
+          id: action.id
         }
       ];
-    case actions.REMOVE_TODO:
+    case actions.REMOVE_TODO: {
+      let index = find(state, action.id);
       return [
-        ...state.slice(0, action.index),
-        ...state.slice(action.index + 1)
+        ...state.slice(0, index),
+        ...state.slice(index + 1)
       ];
-    case actions.COMPLETE_TODO:
+    }
+    case actions.COMPLETE_TODO: {
+      let index = find(state, action.id);
       return [
-        ...state.slice(0, action.index),
-        Object.assign({}, state[action.index], {
+        ...state.slice(0, index),
+        Object.assign({}, state[index], {
           completed: true
         }),
-        ...state.slice(action.index + 1)
+        ...state.slice(index + 1)
       ];
-    case actions.UNCOMPLETE_TODO:
+    }
+    case actions.UNCOMPLETE_TODO: {
+      let index = find(state, action.id);
       return [
-        ...state.slice(0, action.index),
-        Object.assign({}, state[action.index], {
+        ...state.slice(0, index),
+        Object.assign({}, state[index], {
           completed: false
         }),
-        ...state.slice(action.index + 1)
+        ...state.slice(index + 1)
       ];
-    case actions.EDIT_TODO:
+    }
+    case actions.EDIT_TODO: {
+      let index = find(state, action.id);
       return [
-        ...state.slice(0, action.index),
-        Object.assign({}, state[action.index], {
+        ...state.slice(0, index),
+        Object.assign({}, state[index], {
           text: action.text
         }),
-        ...state.slice(action.index + 1)
+        ...state.slice(index + 1)
       ];
-    case actions.CLEAR:
-      return [];
+    }
     default:
       return state;
   }
 }
 
+
+/**
+ * Remeber reducer
+ */
+
 function remembers(state = [], action) {
-  switch (action.type) {
+  switch(action.type) {
     case actions.ADD_REMEMBER:
       return [
         ...state,
-        action.text
+        {
+          text: action.text,
+          id: unique(32),
+          date: action.date
+        }
       ];
-    case actions.REMOVE_REMEMBER:
+    case actions.REMOVE_REMEMBER: {
+      let index = find(state, action.id);
       return [
-        ...state.slice(0, action.index),
-        ...state.slice(action.index + 1)
+        ...state.slice(0, index),
+        ...state.slice(index + 1)
       ];
-    case actions.EDIT_REMEMBER:
+    }
+    case actions.EDIT_REMEMBER: {
+      let index = find(state, action.id);
       return [
-        ...state.slice(0, action.index),
-        action.text,
-        ...state.slice(action.index + 1)
+        ...state.slice(0, index),
+        Object.assign({}, state[index], {
+          text: action.text
+        }),
+        ...state.slice(index + 1)
       ];
-    case actions.CLEAR:
-      return [];
+    }
+    case actions.LOAD_REMEMBER:
+      return [
+        ...state,
+        {
+          text: action.text,
+          id: action.id,
+          date: action.date
+        }
+      ];
     default:
       return state;
   }
 }
 
-const convert = (date) =>
-  new Date(date).toString().split(' ').slice(1, 4).join(' ');
+/**
+ * Modal reducer
+ */
 
-function date(state = convert(new Date()), action) {
-  switch (action.type) {
-    case actions.CHANGE_DATE:
-      return convert(action.date);
+ const defaultModal = {
+   className: 'modal',
+   buttons: [],
+   defaultValue: '',
+   title: '',
+   placeholder: ''
+ };
+
+function modal(state = defaultModal, action) {
+  switch(action.type) {
+    case actions.SHOW_MODAL:
+      return Object.assign({}, state, action.modal, {
+        className: 'modal active'
+      });
+    case actions.HIDE_MODAL:
+      return defaultModal;
     default:
       return state;
   }
 }
 
-const todoApp = combineReducers({
+export default combineReducers({
   todos,
   remembers,
-  date
+  modal,
+  routing: routerReducer
 });
-
-export default todoApp;

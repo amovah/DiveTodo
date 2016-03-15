@@ -10,25 +10,19 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = require('react-router');
+var _reactRedux = require('react-redux');
 
 var _reactRouterRedux = require('react-router-redux');
 
-var _store = require('../store');
+var _Daypicker = require('./Daypicker');
 
-var _store2 = _interopRequireDefault(_store);
+var _Daypicker2 = _interopRequireDefault(_Daypicker);
 
-var _DiveTodo = require('./DiveTodo');
+var _Modal = require('./Modal');
 
-var _DiveTodo2 = _interopRequireDefault(_DiveTodo);
+var _Modal2 = _interopRequireDefault(_Modal);
 
-var _DoRemember = require('./DoRemember');
-
-var _DoRemember2 = _interopRequireDefault(_DoRemember);
-
-var _Body = require('./Body');
-
-var _Body2 = _interopRequireDefault(_Body);
+var _utils = require('../utils');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,38 +32,62 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.hashHistory, _store2.default);
+var DiveTodo = function (_Component) {
+  _inherits(DiveTodo, _Component);
 
-var _class = function (_Component) {
-  _inherits(_class, _Component);
+  function DiveTodo() {
+    _classCallCheck(this, DiveTodo);
 
-  function _class() {
-    _classCallCheck(this, _class);
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DiveTodo).call(this));
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(_class).apply(this, arguments));
+    _this.showDaypicker = _this.showDaypicker.bind(_this);
+    _this.onSelect = _this.onSelect.bind(_this);
+    return _this;
   }
 
-  _createClass(_class, [{
+  _createClass(DiveTodo, [{
+    key: 'showDaypicker',
+    value: function showDaypicker() {
+      this.refs.daypicker.classList.add('active');
+    }
+  }, {
+    key: 'onSelect',
+    value: function onSelect(e, date) {
+      this.props.dispatch((0, _reactRouterRedux.push)('/app/' + (0, _utils.pureDate)(date)));
+      this.refs.daypicker.classList.remove('active');
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var date = new Date(parseInt(this.props.params.date)).toString().split(' ').slice(1, 4).join(' ');
       return _react2.default.createElement(
-        _reactRouter.Router,
-        { history: history },
+        'div',
+        { className: 'container' },
         _react2.default.createElement(
-          _reactRouter.Route,
-          { path: '/', component: _Body2.default },
+          'div',
+          { className: 'item-with-icon' },
           _react2.default.createElement(
-            _reactRouter.Route,
-            { path: '/app', component: _DiveTodo2.default },
-            _react2.default.createElement(_reactRouter.Route, { path: '/app/:date', component: _DoRemember2.default })
-          )
-        )
+            'h4',
+            null,
+            date
+          ),
+          _react2.default.createElement('span', { className: 'icon icon-calendar', onClick: this.showDaypicker })
+        ),
+        this.props.children,
+        _react2.default.createElement(
+          'div',
+          { id: 'daypicker', ref: 'daypicker' },
+          _react2.default.createElement(_Daypicker2.default, { onSelect: this.onSelect })
+        ),
+        _react2.default.createElement(_Modal2.default, null)
       );
     }
   }]);
 
-  return _class;
+  return DiveTodo;
 }(_react.Component);
 
-exports.default = _class;
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return { date: state.date };
+})(DiveTodo);
 module.exports = exports['default'];

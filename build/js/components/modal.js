@@ -1,16 +1,18 @@
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
+var _reactRedux = require('react-redux');
+
+var _actions = require('../actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30,75 +32,41 @@ var Modal = function (_Component) {
   }
 
   _createClass(Modal, [{
-    key: 'closeModal',
-    value: function closeModal() {
-      var _this2 = this;
-
-      this.refs.modal.classList.remove('active');
-      setTimeout(function () {
-        (0, _reactDom.unmountComponentAtNode)(_this2.refs.modal.parentNode);
-      }.bind(this), 400);
-    }
-  }, {
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.closeModal = this.closeModal.bind(this);
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this3 = this;
-
-      // I don't why, but I need this little timeout function for it's animation
-
-      setTimeout(function () {
-        _this3.refs.modal.classList.add('active');
-      }.bind(this), 50);
-    }
-  }, {
-    key: 'handleClick',
-    value: function handleClick(action) {
-      var node = this.refs.input;
-      action(node.value, this.closeModal);
-      node.value = '';
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this2 = this;
 
-      var options = this.props.options;
-
-
-      var buttons = options.buttons.map(function (item, index) {
+      var buttons = this.props.buttons.map(function (item, index) {
         return _react2.default.createElement(
           'button',
           { key: index, onClick: function onClick() {
-              return _this4.handleClick(item.onClick);
+              item.onClick(_this2.refs.input);
             } },
           item.title
         );
       }).concat(_react2.default.createElement(
         'button',
-        { key: 'close', onClick: function onClick() {
-            return _this4.closeModal();
+        {
+          key: 'close',
+          onClick: function onClick() {
+            _this2.props.dispatch(_this2.props.hideModal());
           } },
         'CLOSE'
       ));
 
       return _react2.default.createElement(
         'div',
-        { className: 'modal', ref: 'modal' },
+        { className: this.props.className, ref: 'modal' },
         _react2.default.createElement(
           'div',
           { className: 'modal-content' },
           _react2.default.createElement(
             'h4',
             null,
-            options.title
+            this.props.title
           ),
-          _react2.default.createElement('input', { type: 'text', placeholder: options.placeholder, ref: 'input',
-            defaultValue: options.value })
+          _react2.default.createElement('input', { type: 'text', placeholder: this.props.placeholder, ref: 'input',
+            defaultValue: this.props.defaultValue, key: Math.random() })
         ),
         _react2.default.createElement(
           'div',
@@ -112,8 +80,12 @@ var Modal = function (_Component) {
   return Modal;
 }(_react.Component);
 
-exports.default = function (options) {
-  (0, _reactDom.render)(_react2.default.createElement(Modal, { options: options }), document.getElementById('modal'));
-};
-
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return state.modal;
+}, function (dispatch) {
+  return {
+    dispatch: dispatch,
+    hideModal: _actions.hideModal
+  };
+})(Modal);
 module.exports = exports['default'];

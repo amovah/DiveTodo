@@ -8,38 +8,20 @@ var _reactDom = require('react-dom');
 
 var _reactRedux = require('react-redux');
 
-var _app = require('./js/components/app');
+var _App = require('./js/components/App');
 
-var _app2 = _interopRequireDefault(_app);
+var _App2 = _interopRequireDefault(_App);
 
-var _stores = require('./js/stores');
+var _store = require('./js/store');
 
-var _stores2 = _interopRequireDefault(_stores);
+var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactDom.render)(_react2.default.createElement(
   _reactRedux.Provider,
-  { store: _stores2.default },
-  _react2.default.createElement(_app2.default, null)
+  { store: _store2.default },
+  _react2.default.createElement(_App2.default, null)
 ), document.getElementById('app'));
 
-var date = new Date();
-
-function notify() {
-  var now = date.toString().split(' ').slice(1, 4).join(' '),
-      todos = require('./database.json')[now].todos;
-
-  if (!todos.every(function (item) {
-    return item.completed;
-  })) {
-    var uncompletedTodos = todos.filter(function (item) {
-      return !item.completed;
-    }).length;
-    new Notification('DiveTodo', {
-      body: 'Hurry up, You have ' + uncompletedTodos + ' uncompleted todo(s) :('
-    });
-  }
-}
-
-setTimeout(notify, (20 - date.getHours()) * 1000 * 60 * 60);
+// TODO: add notification for uncompletetd todos

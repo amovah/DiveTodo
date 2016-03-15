@@ -1,28 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './js/components/app';
-import store from './js/stores';
+import App from './js/components/App';
+import store from './js/store';
 
 render(
   <Provider store={store}>
-    <App />
+    <App/>
   </Provider>,
   document.getElementById('app')
 );
 
-let date = new Date();
-
-function notify() {
-  let now = date.toString().split(' ').slice(1, 4).join(' '),
-      todos = require('./database.json')[now].todos;
-
-  if (!todos.every(item => item.completed)) {
-    let uncompletedTodos = todos.filter(item => !item.completed).length;
-    new Notification('DiveTodo', {
-      body: `Hurry up, You have ${uncompletedTodos} uncompleted todo(s) :(`
-    });
-  }
-}
-
-setTimeout(notify, (20 - date.getHours() ) * 1000 * 60 * 60);
+// TODO: add notification for uncompletetd todos
