@@ -30,7 +30,6 @@ var _class = function (_Component) {
 
     _this.toggleComplete = _this.toggleComplete.bind(_this);
     _this.editTodo = _this.editTodo.bind(_this);
-    _this.removeTodo = _this.removeTodo.bind(_this);
     return _this;
   }
 
@@ -56,11 +55,6 @@ var _class = function (_Component) {
       }));
     }
   }, {
-    key: 'removeTodo',
-    value: function removeTodo(id) {
-      this.props.dispatch((0, _actions.removeTodo)(id));
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
@@ -83,12 +77,24 @@ var _class = function (_Component) {
             'div',
             null,
             _react2.default.createElement('span', { className: 'icon light icon-x',
+              title: 'Remove',
               onClick: function onClick() {
-                _this3.removeTodo(item.id);
+                _this3.props.dispatch((0, _actions.removeTodo)(item.id));
               } }),
             _react2.default.createElement('span', { className: 'icon light icon-pencil',
+              title: 'Edit',
               onClick: function onClick() {
                 _this3.editTodo(item.text, item.id);
+              } }),
+            _react2.default.createElement('span', { className: 'icon light icon-arrow-left',
+              title: 'Move to previous day',
+              onClick: function onClick() {
+                _this3.props.dispatch((0, _actions.moveToPreviousTodo)(item.id));
+              } }),
+            _react2.default.createElement('span', { className: 'icon light icon-arrow-right',
+              title: 'Move to next day',
+              onClick: function onClick() {
+                _this3.props.dispatch((0, _actions.moveToNextTodo)(item.id));
               } })
           )
         );

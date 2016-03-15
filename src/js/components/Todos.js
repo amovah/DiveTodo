@@ -4,7 +4,9 @@ import {
   completeTodo,
   uncompleteTodo,
   editTodo,
-  showModal
+  showModal,
+  moveToNextTodo as moveToNext,
+  moveToPreviousTodo as moveToPrevious
  } from '../actions';
 
 export default class extends Component {
@@ -12,7 +14,6 @@ export default class extends Component {
     super();
     this.toggleComplete = this.toggleComplete.bind(this);
     this.editTodo = this.editTodo.bind(this);
-    this.removeTodo = this.removeTodo.bind(this);
   }
 
   toggleComplete(completed, id) {
@@ -34,10 +35,6 @@ export default class extends Component {
     }));
   }
 
-  removeTodo(id) {
-    this.props.dispatch(removeTodo(id));
-  }
-
   render() {
     const todos = this.props.todos.map((item, index) => {
       return (
@@ -45,16 +42,28 @@ export default class extends Component {
           <p onClick={() => { this.toggleComplete(item.completed, item.id); }}
             style={{
               textDecoration: item.completed ? 'line-through' : 'none'
-            }}>
-            {item.text}
-          </p>
+            }}>{item.text}</p>
           <div>
             <span className="icon light icon-x"
-              onClick={() => { this.removeTodo(item.id); }}>
+              title="Remove"
+              onClick={() => {
+                this.props.dispatch(removeTodo(item.id));
+              }}>
             </span>
             <span className="icon light icon-pencil"
+              title="Edit"
               onClick={() => { this.editTodo(item.text, item.id); }}>
             </span>
+            <span className="icon light icon-arrow-left"
+              title="Move to previous day"
+              onClick={() => {
+                this.props.dispatch(moveToPrevious(item.id));
+              }}></span>
+            <span className="icon light icon-arrow-right"
+              title="Move to next day"
+              onClick={() => {
+                this.props.dispatch(moveToNext(item.id));
+              }}></span>
           </div>
         </li>
       );

@@ -15,6 +15,10 @@ exports.editRemember = editRemember;
 exports.showModal = showModal;
 exports.hideModal = hideModal;
 exports.loadRemember = loadRemember;
+exports.moveToNextRemember = moveToNextRemember;
+exports.moveToPreviousRemember = moveToPreviousRemember;
+exports.moveToNextTodo = moveToNextTodo;
+exports.moveToPreviousTodo = moveToPreviousTodo;
 /**
  * Constants
  */
@@ -31,6 +35,10 @@ var EDIT_REMEMBER = exports.EDIT_REMEMBER = 'EDIT_REMEMBER';
 var SHOW_MODAL = exports.SHOW_MODAL = 'SHOW_MODAL';
 var HIDE_MODAL = exports.HIDE_MODAL = 'HIDE_MODAL';
 var LOAD_REMEMBER = exports.LOAD_REMEMBER = 'LOAD_REMEMBER';
+var MOVE_TO_NEXT_REMEMBER = exports.MOVE_TO_NEXT_REMEMBER = 'MOVE_TO_NEXT_REMEMBER';
+var MOVE_TO_PREVIOUS_REMEMBER = exports.MOVE_TO_PREVIOUS_REMEMBER = 'MOVE_TO_PREVIOUS_REMEMBER';
+var MOVE_TO_NEXT_TODO = exports.MOVE_TO_NEXT_TODO = 'MOVE_TO_NEXT_TODO';
+var MOVE_TO_PREVIOUS_TODO = exports.MOVE_TO_PREVIOUS_TODO = 'MOVE_TO_PREVIOUS_TODO';
 
 /**
  * Actions creators
@@ -93,4 +101,20 @@ function loadRemember(remember) {
     date: remember.date,
     id: remember.id
   };
+}
+
+function moveToNextRemember(id) {
+  return { type: MOVE_TO_NEXT_REMEMBER, id: id };
+}
+
+function moveToPreviousRemember(id) {
+  return { type: MOVE_TO_PREVIOUS_REMEMBER, id: id };
+}
+
+function moveToNextTodo(id) {
+  return { type: MOVE_TO_NEXT_TODO, id: id };
+}
+
+function moveToPreviousTodo(id) {
+  return { type: MOVE_TO_PREVIOUS_TODO, id: id };
 }

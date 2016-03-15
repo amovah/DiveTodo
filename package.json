@@ -18,6 +18,7 @@
   "homepage": "https://github.com/amovah/divetodo#readme",
   "dependencies": {
     "electron-prebuilt": "^0.37.1",
+    "moment": "^2.12.0",
     "react": "^0.14.7",
     "react-day-picker": "^1.1.5",
     "react-dom": "^0.14.7",

@@ -6,9 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = require('redux');
 
-var _reactRouterRedux = require('react-router-redux');
-
 var _reactRouter = require('react-router');
+
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
 
 var _reducers = require('./reducers');
 
@@ -20,9 +22,9 @@ var _actions = require('./actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)((0, _reactRouterRedux.routerMiddleware)(_reactRouter.hashHistory)));
+var store = (0, _redux.createStore)(_reducers2.default);
 
-store.dispatch((0, _reactRouterRedux.push)('/app/' + (0, _utils.pureDate)(new Date())));
+_reactRouter.hashHistory.push('/app/' + (0, _utils.getPureDate)((0, _moment2.default)()).valueOf());
 
 (0, _utils.readDatabase)().then(function (database) {
   var _iteratorNormalCompletion = true;

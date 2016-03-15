@@ -39,10 +39,10 @@ class DoRemember extends Component {
 
   render() {
     const todos = this.props.todos.filter(
-      item => item.date === this.props.params.date
+      item => item.date === +this.props.params.date
     );
     const remembers = this.props.remembers.filter(
-      item => item.date === this.props.params.date
+      item => item.date === +this.props.params.date
     );
 
     return (

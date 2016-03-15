@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 import { unique } from 'stringing';
+import moment from 'moment';
 import * as actions from './actions';
 import { find } from './utils';
 
@@ -17,7 +17,7 @@ function todos(state = [], action) {
           id: unique(32),
           text: action.text,
           completed: false,
-          date: action.date
+          date: +action.date
         }
       ];
     case actions.LOAD_TODO:
@@ -67,11 +67,30 @@ function todos(state = [], action) {
         ...state.slice(index + 1)
       ];
     }
+    case actions.MOVE_TO_NEXT_TODO: {
+      let index = find(state, action.id);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], {
+          date: moment(state[index].date).add(1, 'd').valueOf()
+        }),
+        ...state.slice(index + 1)
+      ];
+    }
+    case actions.MOVE_TO_PREVIOUS_TODO: {
+      let index = find(state, action.id);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], {
+          date: moment(state[index].date).subtract(1, 'd').valueOf()
+        }),
+        ...state.slice(index + 1)
+      ];
+    }
     default:
       return state;
   }
 }
-
 
 /**
  * Remeber reducer
@@ -85,7 +104,7 @@ function remembers(state = [], action) {
         {
           text: action.text,
           id: unique(32),
-          date: action.date
+          date: +action.date
         }
       ];
     case actions.REMOVE_REMEMBER: {
@@ -114,6 +133,26 @@ function remembers(state = [], action) {
           date: action.date
         }
       ];
+    case actions.MOVE_TO_NEXT_REMEMBER: {
+      let index = find(state, action.id);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], {
+          date: moment(state[index].date).add(1, 'd').valueOf()
+        }),
+        ...state.slice(index + 1)
+      ];
+    }
+    case actions.MOVE_TO_PREVIOUS_REMEMBER: {
+      let index = find(state, action.id);
+      return [
+        ...state.slice(0, index),
+        Object.assign({}, state[index], {
+          date: moment(state[index].date).subtract(1, 'd').valueOf()
+        }),
+        ...state.slice(index + 1)
+      ];
+    }
     default:
       return state;
   }
@@ -147,6 +186,5 @@ function modal(state = defaultModal, action) {
 export default combineReducers({
   todos,
   remembers,
-  modal,
-  routing: routerReducer
+  modal
 });

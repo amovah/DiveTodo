@@ -20,16 +20,19 @@ export function readDatabase() {
   });
 }
 
-export function pureDate(date) {
-  return new Date(
-    date.getFullYear(), date.getMonth(), date.getDate()
-  ).getTime();
-}
-
 export function find(state, id) {
   for (let [index, item] of state.entries()) {
     if (item.id === id) {
       return index;
     }
   }
+}
+
+export function getPureDate(date) {
+  date.millisecond(0);
+  date.second(0);
+  date.minute(0);
+  date.hour(0);
+
+  return date;
 }

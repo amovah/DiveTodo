@@ -31,22 +31,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 .icon-calendar:before {
-  content: "a";
+  content: "\61";
 }
 .icon-check:before {
-  content: "b";
+  content: "\62";
 }
 .icon-plus:before {
-  content: "c";
+  content: "\63";
 }
 .icon-x:before {
-  content: "d";
+  content: "\64";
 }
 .icon-clock:before {
-  content: "e";
+  content: "\65";
 }
 .icon-pencil:before {
-  content: "f";
+  content: "\66";
+}
+.icon-arrow-right:before {
+  content: "\67";
+}
+.icon-arrow-left:before {
+  content: "\68";
+}
+.icon-align-justify:before {
+  content: "\69";
 }
 /* DayPicker styles */
 .DayPicker {

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { removeRemember, editRemember, showModal } from '../actions';
+import {
+  removeRemember,
+  editRemember,
+  showModal,
+  moveToNextRemember as moveToNext,
+  moveToPreviousRemember as moveToPrevious
+} from '../actions';
 
 export default class extends Component {
   constructor() {
     super();
-    this.removeRemember = this.removeRemember.bind(this);
     this.editRemember = this.editRemember.bind(this);
-  }
-
-  removeRemember(id) {
-    this.props.dispatch(removeRemember(id));
   }
 
   editRemember(text, id) {
@@ -32,10 +33,23 @@ export default class extends Component {
           <p>{item.text}</p>
           <div>
             <span className="icon light icon-x"
-            onClick={() => { this.removeRemember(item.id); }}>
-            </span>
+              title="Remove"
+              onClick={() => {
+                this.props.dispatch(removeRemember(item.id));
+              }}></span>
             <span className="icon light icon-pencil"
-            onClick={() => this.editRemember(item.text, item.id)}></span>
+              title="Edit"
+              onClick={() => { this.editRemember(item.text, item.id); }}></span>
+            <span className="icon light icon-arrow-left"
+              title="Move to previous day"
+              onClick={() => {
+                this.props.dispatch(moveToPrevious(item.id));
+              }}></span>
+            <span className="icon light icon-arrow-right"
+              title="Move to next day"
+              onClick={() => {
+                this.props.dispatch(moveToNext(item.id));
+              }}></span>
           </div>
         </li>
       );

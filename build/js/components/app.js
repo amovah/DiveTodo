@@ -12,12 +12,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _reactRouterRedux = require('react-router-redux');
-
-var _store = require('../store');
-
-var _store2 = _interopRequireDefault(_store);
-
 var _DiveTodo = require('./DiveTodo');
 
 var _DiveTodo2 = _interopRequireDefault(_DiveTodo);
@@ -38,8 +32,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.hashHistory, _store2.default);
-
 var _class = function (_Component) {
   _inherits(_class, _Component);
 
@@ -54,7 +46,7 @@ var _class = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         _reactRouter.Router,
-        { history: history },
+        { history: _reactRouter.hashHistory },
         _react2.default.createElement(
           _reactRouter.Route,
           { path: '/', component: _Body2.default },

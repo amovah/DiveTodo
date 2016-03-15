@@ -81,10 +81,10 @@ var DoRemember = function (_Component) {
       var _this4 = this;
 
       var todos = this.props.todos.filter(function (item) {
-        return item.date === _this4.props.params.date;
+        return item.date === +_this4.props.params.date;
       });
       var remembers = this.props.remembers.filter(function (item) {
-        return item.date === _this4.props.params.date;
+        return item.date === +_this4.props.params.date;
       });
 
       return _react2.default.createElement(

@@ -8,8 +8,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 exports.updateDatabase = updateDatabase;
 exports.readDatabase = readDatabase;
-exports.pureDate = pureDate;
 exports.find = find;
+exports.getPureDate = getPureDate;
 
 var _fs = require('fs');
 
@@ -28,10 +28,6 @@ function readDatabase() {
       resolve(JSON.parse(file));
     });
   });
-}
-
-function pureDate(date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
 }
 
 function find(state, id) {
@@ -64,4 +60,13 @@ function find(state, id) {
       }
     }
   }
+}
+
+function getPureDate(date) {
+  date.millisecond(0);
+  date.second(0);
+  date.minute(0);
+  date.hour(0);
+
+  return date;
 }

@@ -12,7 +12,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
-var _reactRouterRedux = require('react-router-redux');
+var _reactRouter = require('react-router');
+
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
 
 var _Daypicker = require('./Daypicker');
 
@@ -53,13 +57,12 @@ var DiveTodo = function (_Component) {
   }, {
     key: 'onSelect',
     value: function onSelect(e, date) {
-      this.props.dispatch((0, _reactRouterRedux.push)('/app/' + (0, _utils.pureDate)(date)));
+      _reactRouter.hashHistory.push('/app/' + (0, _utils.getPureDate)((0, _moment2.default)(date)).valueOf());
       this.refs.daypicker.classList.remove('active');
     }
   }, {
     key: 'render',
     value: function render() {
-      var date = new Date(parseInt(this.props.params.date)).toString().split(' ').slice(1, 4).join(' ');
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -69,7 +72,7 @@ var DiveTodo = function (_Component) {
           _react2.default.createElement(
             'h4',
             null,
-            date
+            (0, _moment2.default)(+this.props.params.date).format('Do MMMM YYYY')
           ),
           _react2.default.createElement('span', { className: 'icon icon-calendar', onClick: this.showDaypicker })
         ),

@@ -28,17 +28,11 @@ var _class = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this));
 
-    _this.removeRemember = _this.removeRemember.bind(_this);
     _this.editRemember = _this.editRemember.bind(_this);
     return _this;
   }
 
   _createClass(_class, [{
-    key: 'removeRemember',
-    value: function removeRemember(id) {
-      this.props.dispatch((0, _actions.removeRemember)(id));
-    }
-  }, {
     key: 'editRemember',
     value: function editRemember(text, id) {
       var _this2 = this;
@@ -72,12 +66,24 @@ var _class = function (_Component) {
             'div',
             null,
             _react2.default.createElement('span', { className: 'icon light icon-x',
+              title: 'Remove',
               onClick: function onClick() {
-                _this3.removeRemember(item.id);
+                _this3.props.dispatch((0, _actions.removeRemember)(item.id));
               } }),
             _react2.default.createElement('span', { className: 'icon light icon-pencil',
+              title: 'Edit',
               onClick: function onClick() {
-                return _this3.editRemember(item.text, item.id);
+                _this3.editRemember(item.text, item.id);
+              } }),
+            _react2.default.createElement('span', { className: 'icon light icon-arrow-left',
+              title: 'Move to previous day',
+              onClick: function onClick() {
+                _this3.props.dispatch((0, _actions.moveToPreviousRemember)(item.id));
+              } }),
+            _react2.default.createElement('span', { className: 'icon light icon-arrow-right',
+              title: 'Move to next day',
+              onClick: function onClick() {
+                _this3.props.dispatch((0, _actions.moveToNextRemember)(item.id));
               } })
           )
         );

@@ -1,16 +1,13 @@
-import { createStore, applyMiddleware } from 'redux';
-import { routerMiddleware, push } from 'react-router-redux';
+import { createStore } from 'redux';
 import { hashHistory } from 'react-router';
+import moment from 'moment';
 import reducers from './reducers';
-import { pureDate, updateDatabase, readDatabase } from './utils';
+import { updateDatabase, readDatabase, getPureDate } from './utils';
 import { loadTodo, loadRemember } from './actions';
 
-const store = createStore(
-  reducers,
-  applyMiddleware(routerMiddleware(hashHistory))
-);
+const store = createStore(reducers);
 
-store.dispatch(push(`/app/${pureDate(new Date())}`));
+hashHistory.push(`/app/${getPureDate(moment()).valueOf()}`);
 
 readDatabase().then(database => {
   for (let item of database.todos) {
@@ -25,6 +22,5 @@ readDatabase().then(database => {
     updateDatabase(store.getState());
   });
 });
-
 
 export default store;

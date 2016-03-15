@@ -14,6 +14,10 @@ export const EDIT_REMEMBER = 'EDIT_REMEMBER';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const LOAD_REMEMBER = 'LOAD_REMEMBER';
+export const MOVE_TO_NEXT_REMEMBER = 'MOVE_TO_NEXT_REMEMBER';
+export const MOVE_TO_PREVIOUS_REMEMBER = 'MOVE_TO_PREVIOUS_REMEMBER';
+export const MOVE_TO_NEXT_TODO = 'MOVE_TO_NEXT_TODO';
+export const MOVE_TO_PREVIOUS_TODO = 'MOVE_TO_PREVIOUS_TODO';
 
 /**
  * Actions creators
@@ -76,4 +80,20 @@ export function loadRemember(remember) {
     date: remember.date,
     id: remember.id
   };
+}
+
+export function moveToNextRemember(id) {
+  return { type: MOVE_TO_NEXT_REMEMBER, id };
+}
+
+export function moveToPreviousRemember(id) {
+  return { type: MOVE_TO_PREVIOUS_REMEMBER, id };
+}
+
+export function moveToNextTodo(id) {
+  return { type: MOVE_TO_NEXT_TODO, id };
+}
+
+export function moveToPreviousTodo(id) {
+  return { type: MOVE_TO_PREVIOUS_TODO, id };
 }

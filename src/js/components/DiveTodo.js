@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { hashHistory } from 'react-router';
+import moment from 'moment';
 import Daypicker from './Daypicker';
 import Modal from './Modal';
-import { pureDate } from '../utils';
+import { getPureDate } from '../utils';
 
 class DiveTodo extends Component {
   constructor() {
@@ -17,17 +18,15 @@ class DiveTodo extends Component {
   }
 
   onSelect(e, date) {
-    this.props.dispatch(push('/app/' + pureDate(date)));
+    hashHistory.push('/app/' + getPureDate(moment(date)).valueOf());
     this.refs.daypicker.classList.remove('active');
   }
 
   render() {
-    const date = new Date(parseInt(this.props.params.date)).toString()
-    .split(' ').slice(1, 4).join(' ');
     return (
       <div className="container">
         <div className="item-with-icon">
-          <h4>{date}</h4>
+          <h4>{moment(+this.props.params.date).format('Do MMMM YYYY')}</h4>
           <span className="icon icon-calendar" onClick={this.showDaypicker}>
           </span>
         </div>
