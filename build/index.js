@@ -1,22 +1,21 @@
 'use strict';
 
-var electron = require('electron'),
-    app = electron.app,
-    BrowserWindow = electron.BrowserWindow,
-    Menu = electron.Menu;
+var _electron = require('electron');
 
-app.on('window-all-closed', function () {
+_electron.app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
-    app.quit();
+    _electron.app.quit();
   }
 });
 
-app.on('ready', function () {
-  var window = new BrowserWindow({ width: 1000, height: 800 });
+_electron.app.on('ready', function () {
+  var window = new _electron.BrowserWindow({ width: 1000, height: 800 });
 
   window.loadURL('file:///' + __dirname + '/index.html');
 
-  window.webContents.openDevTools();
-
-  // Menu.setApplicationMenu(null);
+  if (process.env.DEVELOPMENT) {
+    window.webContents.openDevTools();
+  } else {
+    _electron.Menu.setApplicationMenu(_electron.Menu.buildFromTemplate([]));
+  }
 });

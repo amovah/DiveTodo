@@ -1,7 +1,4 @@
-const electron = require('electron'),
-  app = electron.app,
-  BrowserWindow = electron.BrowserWindow,
-  Menu = electron.Menu;
+import { app, BrowserWindow, Menu } from 'electron';
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -14,7 +11,10 @@ app.on('ready', () => {
 
   window.loadURL(`file:///${__dirname}/index.html`);
 
-  window.webContents.openDevTools();
+  if (process.env.DEVELOPMENT) {
+    window.webContents.openDevTools();
+  } else {
+    Menu.setApplicationMenu(Menu.buildFromTemplate([]));
+  }
 
-  // Menu.setApplicationMenu(null);
 });
