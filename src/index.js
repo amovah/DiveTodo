@@ -11,10 +11,27 @@ app.on('ready', () => {
 
   window.loadURL(`file:///${__dirname}/index.html`);
 
+  let template = [];
+
+  if (process.platform === 'darwin') {
+    template.unshift({
+      label: app.getName(),
+      submenu: [
+        {
+          label: 'Quit',
+          accelerator: 'Command+Q',
+          click() {
+            app.quit();
+          }
+        }
+      ]
+    });
+  }
+
   if (process.env.DEVELOPMENT) {
     window.webContents.openDevTools();
   } else {
-    Menu.setApplicationMenu(Menu.buildFromTemplate([]));
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   }
 
 });
