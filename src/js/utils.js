@@ -1,9 +1,10 @@
-import { writeFileSync, readFile } from 'fs';
+import { readFile, writeFile } from 'fs';
+import { loadTodo, loadRemember } from './actions';
 
 const DATABASE = `${__dirname.split('/').slice(0, -1).join('/')}/database.json`;
 
 export function updateDatabase(database) {
-  writeFileSync(
+  return write(
     DATABASE,
     JSON.stringify({
       todos: database.todos,
@@ -13,10 +14,8 @@ export function updateDatabase(database) {
 }
 
 export function readDatabase() {
-  return new Promise(resolve => {
-    readFile(DATABASE, (err, file) => {
-      resolve(JSON.parse(file));
-    });
+  return read(DATABASE, 'utf8').then(file => {
+    return JSON.parse(file);
   });
 }
 
@@ -35,4 +34,40 @@ export function getPureDate(date) {
   date.hour(0);
 
   return date;
+}
+
+export function write(...args) {
+  return new Promise((resolve, reject) => {
+    writeFile(...args, err => {
+      if (err) {
+        reject(err);
+      }
+      resolve();
+    });
+  });
+}
+
+export function read(...args) {
+  return new Promise((resolve, reject) => {
+    readFile(...args, (err, file) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(file);
+    });
+  });
+}
+
+export function loadAll(dispatch, state) {
+  return new Promise(resolve => {
+    for (let todo of state.todos) {
+      dispatch(loadTodo(todo));
+    }
+
+    for (let remember of state.remembers) {
+      dispatch(loadRemember(remember));
+    }
+
+    resolve();
+  });
 }

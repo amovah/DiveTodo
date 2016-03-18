@@ -6,16 +6,21 @@ class Modal extends Component {
   render() {
     const buttons = this.props.buttons.map((item, index) => {
       return (
-        <button key={index} onClick={() => { item.onClick(this.refs.input); }}>
-        {item.title}</button>
+        <button
+          className="btn no-background"
+          key={index}
+          onClick={() => { item.onClick(this.refs.input); }}>
+          {item.title}
+        </button>
       );
     }).concat(
       <button
-      key="close"
-      onClick={() => {
-        this.props.dispatch(this.props.hideModal());
-      }}>
-      CLOSE
+        className="btn no-background"
+        key="close"
+        onClick={() => {
+          this.props.dispatch(this.props.hideModal());
+        }}>
+        CLOSE
       </button>
     );
 

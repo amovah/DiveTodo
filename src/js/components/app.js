@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Router, Route, hashHistory } from 'react-router';
 import DiveTodo from './DiveTodo';
 import DoRemember from './DoRemember';
-import Body from './Body';
+import Header from './Header';
+import Settings from './Settings';
 
-export default class extends Component {
-  render() {
-    return (
-      <Router history={hashHistory}>
-        <Route path="/" component={Body}>
-          <Route path="/app" component={DiveTodo}>
-            <Route path="/app/:date" component={DoRemember}/>
-          </Route>
+export default () => {
+  return (
+    <Router history={hashHistory}>
+      <Route path="/" component={Header}>
+        <Route path="/app" component={DiveTodo}>
+          <Route path="/app/:date" component={DoRemember}/>
         </Route>
-      </Router>
-    );
-  }
-}
+        <Route path="/settings" component={Settings}/>
+      </Route>
+    </Router>
+  );
+};

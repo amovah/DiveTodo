@@ -2,23 +2,24 @@ header {
   background-color: @color-1;
   padding: 10px 30px;
   box-shadow: 0px 3px 10px 0px rgba(46, 46, 46, 0.6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  h3 {
-    margin: 0;
-    padding: 0;
-    .font(40px, 500);
+  a {
+    text-decoration: none;
+    color: white;
   }
 
-  p {
-    padding: 0 30px;
-  }
+ > div:first-child {
+   h3 {
+     margin: 0;
+     padding: 0;
+     .font(40px, 500);
+   }
 
-  @media screen and (max-width: 1000px) {
-    text-aling: center;
-    padding: 10px;
-
-    p {
-      padding: 0;
-    }
-  }
+   p {
+     padding: 0 30px;
+   }
+ }
 }

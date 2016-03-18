@@ -30,6 +30,25 @@ ul {
   cursor: pointer;
 }
 
+.btn {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 3px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  color: white;
+  margin: 0 3px;
+  transition: all 0.4s ease;
+
+  &.no-background {
+    background-color: transparent;
+  }
+
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+}
+
 @import 'header';
 @import 'container';
 @import 'modal';
