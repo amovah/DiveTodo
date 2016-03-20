@@ -67,22 +67,16 @@ function todos(state = [], action) {
         ...state.slice(index + 1)
       ];
     }
-    case actions.MOVE_TO_NEXT_TODO: {
+    case actions.MOVE_TODO: {
       let index = find(state, action.id);
+      let date = moment(state[index].date)
+        .add(action.duration, 'd')
+        .startOf('day')
+        .valueOf();
       return [
         ...state.slice(0, index),
         Object.assign({}, state[index], {
-          date: moment(state[index].date).add(1, 'd').valueOf()
-        }),
-        ...state.slice(index + 1)
-      ];
-    }
-    case actions.MOVE_TO_PREVIOUS_TODO: {
-      let index = find(state, action.id);
-      return [
-        ...state.slice(0, index),
-        Object.assign({}, state[index], {
-          date: moment(state[index].date).subtract(1, 'd').valueOf()
+          date
         }),
         ...state.slice(index + 1)
       ];
@@ -133,22 +127,16 @@ function remembers(state = [], action) {
           date: action.date
         }
       ];
-    case actions.MOVE_TO_NEXT_REMEMBER: {
+    case actions.MOVE_REMEMBER: {
       let index = find(state, action.id);
+      let date = moment(state[index].date)
+        .add(action.duration, 'd')
+        .startOf('day')
+        .valueOf();
       return [
         ...state.slice(0, index),
         Object.assign({}, state[index], {
-          date: moment(state[index].date).add(1, 'd').valueOf()
-        }),
-        ...state.slice(index + 1)
-      ];
-    }
-    case actions.MOVE_TO_PREVIOUS_REMEMBER: {
-      let index = find(state, action.id);
-      return [
-        ...state.slice(0, index),
-        Object.assign({}, state[index], {
-          date: moment(state[index].date).subtract(1, 'd').valueOf()
+          date
         }),
         ...state.slice(index + 1)
       ];
@@ -183,8 +171,25 @@ function modal(state = defaultModal, action) {
   }
 }
 
+/**
+ * Config reducer
+ */
+
+ function config(state = {
+   todos: actions.CONFIG_REMOVE,
+   remembers: actions.CONFIG_REMOVE
+ }, action) {
+   switch(action.type) {
+     case actions.SET_CONFIG:
+      return action.config;
+     default:
+      return state;
+   }
+ }
+
 export default combineReducers({
   todos,
   remembers,
-  modal
+  modal,
+  config
 });

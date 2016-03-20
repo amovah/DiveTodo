@@ -15,10 +15,9 @@ exports.editRemember = editRemember;
 exports.showModal = showModal;
 exports.hideModal = hideModal;
 exports.loadRemember = loadRemember;
-exports.moveToNextRemember = moveToNextRemember;
-exports.moveToPreviousRemember = moveToPreviousRemember;
-exports.moveToNextTodo = moveToNextTodo;
-exports.moveToPreviousTodo = moveToPreviousTodo;
+exports.moveTodo = moveTodo;
+exports.moveRemember = moveRemember;
+exports.saveConfig = saveConfig;
 /**
  * Constants
  */
@@ -35,10 +34,12 @@ var EDIT_REMEMBER = exports.EDIT_REMEMBER = 'EDIT_REMEMBER';
 var SHOW_MODAL = exports.SHOW_MODAL = 'SHOW_MODAL';
 var HIDE_MODAL = exports.HIDE_MODAL = 'HIDE_MODAL';
 var LOAD_REMEMBER = exports.LOAD_REMEMBER = 'LOAD_REMEMBER';
-var MOVE_TO_NEXT_REMEMBER = exports.MOVE_TO_NEXT_REMEMBER = 'MOVE_TO_NEXT_REMEMBER';
-var MOVE_TO_PREVIOUS_REMEMBER = exports.MOVE_TO_PREVIOUS_REMEMBER = 'MOVE_TO_PREVIOUS_REMEMBER';
-var MOVE_TO_NEXT_TODO = exports.MOVE_TO_NEXT_TODO = 'MOVE_TO_NEXT_TODO';
-var MOVE_TO_PREVIOUS_TODO = exports.MOVE_TO_PREVIOUS_TODO = 'MOVE_TO_PREVIOUS_TODO';
+var MOVE_TODO = exports.MOVE_TODO = 'MOVE_TODO';
+var MOVE_REMEMBER = exports.MOVE_REMEMBER = 'MOVE_REMEMBER';
+var CONFIG_REMOVE = exports.CONFIG_REMOVE = 0;
+var CONFIG_KEEP = exports.CONFIG_KEEP = 1;
+var CONFIG_MOVE = exports.CONFIG_MOVE = 2;
+var SET_CONFIG = exports.SET_CONFIG = 'SET_CONFIG';
 
 /**
  * Actions creators
@@ -103,18 +104,14 @@ function loadRemember(remember) {
   };
 }
 
-function moveToNextRemember(id) {
-  return { type: MOVE_TO_NEXT_REMEMBER, id: id };
+function moveTodo(id, duration) {
+  return { type: MOVE_TODO, id: id, duration: duration };
 }
 
-function moveToPreviousRemember(id) {
-  return { type: MOVE_TO_PREVIOUS_REMEMBER, id: id };
+function moveRemember(id, duration) {
+  return { type: MOVE_REMEMBER, id: id, duration: duration };
 }
 
-function moveToNextTodo(id) {
-  return { type: MOVE_TO_NEXT_TODO, id: id };
-}
-
-function moveToPreviousTodo(id) {
-  return { type: MOVE_TO_PREVIOUS_TODO, id: id };
+function saveConfig(config) {
+  return { type: SET_CONFIG, config: config };
 }

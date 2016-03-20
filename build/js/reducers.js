@@ -73,19 +73,13 @@ function todos() {
           text: action.text
         })], _toConsumableArray(state.slice(_index3 + 1)));
       }
-    case actions.MOVE_TO_NEXT_TODO:
+    case actions.MOVE_TODO:
       {
         var _index4 = (0, _utils.find)(state, action.id);
+        var date = (0, _moment2.default)(state[_index4].date).add(action.duration, 'd').startOf('day').valueOf();
         return [].concat(_toConsumableArray(state.slice(0, _index4)), [Object.assign({}, state[_index4], {
-          date: (0, _moment2.default)(state[_index4].date).add(1, 'd').valueOf()
+          date: date
         })], _toConsumableArray(state.slice(_index4 + 1)));
-      }
-    case actions.MOVE_TO_PREVIOUS_TODO:
-      {
-        var _index5 = (0, _utils.find)(state, action.id);
-        return [].concat(_toConsumableArray(state.slice(0, _index5)), [Object.assign({}, state[_index5], {
-          date: (0, _moment2.default)(state[_index5].date).subtract(1, 'd').valueOf()
-        })], _toConsumableArray(state.slice(_index5 + 1)));
       }
     default:
       return state;
@@ -114,10 +108,10 @@ function remembers() {
       }
     case actions.EDIT_REMEMBER:
       {
-        var _index6 = (0, _utils.find)(state, action.id);
-        return [].concat(_toConsumableArray(state.slice(0, _index6)), [Object.assign({}, state[_index6], {
+        var _index5 = (0, _utils.find)(state, action.id);
+        return [].concat(_toConsumableArray(state.slice(0, _index5)), [Object.assign({}, state[_index5], {
           text: action.text
-        })], _toConsumableArray(state.slice(_index6 + 1)));
+        })], _toConsumableArray(state.slice(_index5 + 1)));
       }
     case actions.LOAD_REMEMBER:
       return [].concat(_toConsumableArray(state), [{
@@ -125,19 +119,13 @@ function remembers() {
         id: action.id,
         date: action.date
       }]);
-    case actions.MOVE_TO_NEXT_REMEMBER:
+    case actions.MOVE_REMEMBER:
       {
-        var _index7 = (0, _utils.find)(state, action.id);
-        return [].concat(_toConsumableArray(state.slice(0, _index7)), [Object.assign({}, state[_index7], {
-          date: (0, _moment2.default)(state[_index7].date).add(1, 'd').valueOf()
-        })], _toConsumableArray(state.slice(_index7 + 1)));
-      }
-    case actions.MOVE_TO_PREVIOUS_REMEMBER:
-      {
-        var _index8 = (0, _utils.find)(state, action.id);
-        return [].concat(_toConsumableArray(state.slice(0, _index8)), [Object.assign({}, state[_index8], {
-          date: (0, _moment2.default)(state[_index8].date).subtract(1, 'd').valueOf()
-        })], _toConsumableArray(state.slice(_index8 + 1)));
+        var _index6 = (0, _utils.find)(state, action.id);
+        var date = (0, _moment2.default)(state[_index6].date).add(action.duration, 'd').startOf('day').valueOf();
+        return [].concat(_toConsumableArray(state.slice(0, _index6)), [Object.assign({}, state[_index6], {
+          date: date
+        })], _toConsumableArray(state.slice(_index6 + 1)));
       }
     default:
       return state;
@@ -172,9 +160,29 @@ function modal() {
   }
 }
 
+/**
+ * Config reducer
+ */
+
+function config() {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? {
+    todos: actions.CONFIG_REMOVE,
+    remembers: actions.CONFIG_REMOVE
+  } : arguments[0];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case actions.SET_CONFIG:
+      return action.config;
+    default:
+      return state;
+  }
+}
+
 exports.default = (0, _redux.combineReducers)({
   todos: todos,
   remembers: remembers,
-  modal: modal
+  modal: modal,
+  config: config
 });
 module.exports = exports['default'];

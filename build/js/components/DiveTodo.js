@@ -26,8 +26,6 @@ var _Modal = require('./Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _utils = require('../utils');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -57,7 +55,7 @@ var DiveTodo = function (_Component) {
   }, {
     key: 'onSelect',
     value: function onSelect(e, date) {
-      _reactRouter.hashHistory.push('/app/' + (0, _utils.getPureDate)((0, _moment2.default)(date)).valueOf());
+      _reactRouter.hashHistory.push('/app/' + (0, _moment2.default)(date).startOf('day').valueOf());
       this.refs.daypicker.classList.remove('active');
     }
   }, {

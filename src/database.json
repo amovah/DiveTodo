@@ -1,4 +1,8 @@
 {
   "remembers": [],
-  "todos": []
+  "todos": [],
+  "config": {
+    "todos": 0,
+    "remembers": 0
+  }
 }

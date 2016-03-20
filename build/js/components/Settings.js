@@ -10,11 +10,15 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = require('react-redux');
+
 var _electron = require('electron');
 
 var _store = require('../store');
 
 var _utils = require('../utils');
+
+var _actions = require('../actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,16 +28,67 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _class = function (_Component) {
-  _inherits(_class, _Component);
+var Settings = function (_Component) {
+  _inherits(Settings, _Component);
 
-  function _class() {
-    _classCallCheck(this, _class);
+  function Settings() {
+    _classCallCheck(this, Settings);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(_class).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Settings).call(this));
+
+    _this.saveConfig = _this.saveConfig.bind(_this);
+    return _this;
   }
 
-  _createClass(_class, [{
+  _createClass(Settings, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      switch (this.props.todos) {
+        case _actions.CONFIG_REMOVE:
+          this.refs.r_todos.setAttribute('checked', true);
+          break;
+        case _actions.CONFIG_KEEP:
+          this.refs.k_todos.setAttribute('checked', true);
+          break;
+        case _actions.CONFIG_MOVE:
+          this.refs.m_todos.setAttribute('checked', true);
+          break;
+      }
+
+      switch (this.props.remembers) {
+        case _actions.CONFIG_MOVE:
+          this.refs.m_remembers.setAttribute('checked', true);
+          break;
+        case _actions.CONFIG_REMOVE:
+          this.refs.r_remembers.setAttribute('checked', true);
+          break;
+      }
+    }
+  }, {
+    key: 'saveConfig',
+    value: function saveConfig() {
+      var config = { todos: 0, remembers: 0 };
+      var _arr = ['r_todos', 'm_todos', 'k_todos'];
+      for (var _i = 0; _i < _arr.length; _i++) {
+        var el = _arr[_i];
+        if (this.refs[el].checked) {
+          config.todos = parseInt(this.refs[el].value);
+          break;
+        }
+      }
+
+      var _arr2 = ['r_remembers', 'k_remembers'];
+      for (var _i2 = 0; _i2 < _arr2.length; _i2++) {
+        var _el = _arr2[_i2];
+        if (this.refs[_el].checked) {
+          config.remembers = parseInt(this.refs[_el].value);
+          break;
+        }
+      }
+
+      this.props.dispatch((0, _actions.saveConfig)(config));
+    }
+  }, {
     key: 'exportDB',
     value: function exportDB() {
       _electron.remote.dialog.showSaveDialog(function (path) {
@@ -86,12 +141,91 @@ var _class = function (_Component) {
           _react2.default.createElement(
             'h4',
             null,
+            'Out-of-date todos'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'r_todos' },
+              'Remove out-of-date todos.'
+            ),
+            _react2.default.createElement('input', { name: 'oodt', id: 'r_todos', type: 'radio', value: '0',
+              ref: 'r_todos' })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'n_todos' },
+              'Keep them and do not remove them.'
+            ),
+            _react2.default.createElement('input', { name: 'oodt', id: 'n_todos', type: 'radio', value: '1',
+              ref: 'k_todos' })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'm_todos' },
+              'Automove out-of-date uncompleted todos to current day and remove completed todos.'
+            ),
+            _react2.default.createElement('input', { name: 'oodt', id: 'm_todos', type: 'radio', value: '2',
+              ref: 'm_todos' })
+          ),
+          _react2.default.createElement(
+            'h4',
+            null,
+            'Out-of-date remembers'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'r_remembers' },
+              'Remove out-of-date remembers.'
+            ),
+            _react2.default.createElement('input', { name: 'oodr', id: 'r_remembers', type: 'radio', value: '0',
+              ref: 'r_remembers' })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'k_remembers' },
+              'Keep them and do not remove them.'
+            ),
+            _react2.default.createElement('input', { name: 'oodr', id: 'k_remembers', type: 'radio', value: '1',
+              ref: 'k_remembers' })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'button',
+              {
+                className: 'btn',
+                onClick: function onClick() {
+                  _this2.saveConfig();
+                } },
+              'Save'
+            )
+          ),
+          _react2.default.createElement('span', { className: 'seperator' }),
+          _react2.default.createElement(
+            'h4',
+            null,
             'Export & Import Settings and Database'
           ),
           _react2.default.createElement(
             'button',
             {
-              className: 'btn no-background',
+              className: 'btn',
               onClick: function onClick() {
                 _this2.exportDB();
               } },
@@ -100,7 +234,7 @@ var _class = function (_Component) {
           _react2.default.createElement(
             'button',
             {
-              className: 'btn no-background',
+              className: 'btn',
               onClick: function onClick() {
                 _this2.importDB();
               } },
@@ -111,8 +245,10 @@ var _class = function (_Component) {
     }
   }]);
 
-  return _class;
+  return Settings;
 }(_react.Component);
 
-exports.default = _class;
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return state.config;
+})(Settings);
 module.exports = exports['default'];

@@ -52,7 +52,7 @@ var DoRemember = function (_Component) {
         title: 'Add Todo',
         placeholder: 'Todo',
         buttons: [{
-          title: 'ADD',
+          title: 'Add',
           onClick: function (input) {
             _this2.props.dispatch((0, _actions.addTodo)(input.value, _this2.props.params.date));
           }.bind(this)
@@ -68,7 +68,7 @@ var DoRemember = function (_Component) {
         title: 'Add Remember',
         placeholder: 'Remember',
         buttons: [{
-          title: 'ADD',
+          title: 'Add',
           onClick: function (input) {
             _this3.props.dispatch((0, _actions.addRemember)(input.value, _this3.props.params.date));
           }.bind(this)

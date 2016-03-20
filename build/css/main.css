@@ -222,20 +222,45 @@ ul {
   cursor: pointer;
 }
 .btn {
+  display: inline-block;
   border: 2px solid rgba(255, 255, 255, 0.5);
   padding: 3px 15px;
   border-radius: 2px;
   cursor: pointer;
   color: white;
-  margin: 0 3px;
+  margin: 10px 3px;
   transition: all 0.4s ease;
-}
-.btn.no-background {
   background-color: transparent;
 }
 .btn:hover {
   background-color: white;
   color: black;
+}
+input[type="text"] {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  display: inline-block;
+  border-radius: 3px;
+  box-sizing: border-box;
+  background-color: transparent;
+  padding: 5px 10px;
+  color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.4s ease;
+}
+input[type="text"]:focus {
+  background-color: white;
+  color: black;
+  border-bottom: 2px solid transparent;
+}
+.seperator {
+  display: inline-block;
+  height: 2px;
+  width: 100%;
+  margin: 5px;
+  border-radius: 2px;
+  background-color: #193A68;
 }
 header {
   background-color: #2B67BD;
@@ -320,22 +345,6 @@ div.container #todos li > p {
 }
 .modal .modal-content h4 {
   margin: 10px;
-}
-.modal .modal-content input {
-  width: 280px;
-  border: 0;
-  outline: 0;
-  border-radius: 3px;
-  background-color: transparent;
-  padding: 5px 10px;
-  color: white;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-  transition: all 0.4s ease;
-}
-.modal .modal-content input:focus {
-  background-color: white;
-  color: black;
-  border-bottom: 2px solid transparent;
 }
 .modal .modal-footer {
   margin-top: 10px;

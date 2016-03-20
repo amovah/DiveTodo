@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
 import moment from 'moment';
-import { getPureDate } from '../utils';
 
 export default class extends Component {
   constructor() {
@@ -11,7 +10,7 @@ export default class extends Component {
 
   toggleApp() {
     this.props.location.pathname === '/settings' ?
-    hashHistory.push('/app/' + getPureDate(moment()).valueOf()) :
+    hashHistory.push(`/app/${moment().startOf('day').valueOf()}`) :
     hashHistory.push('/settings');
   }
 

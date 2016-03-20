@@ -40,7 +40,7 @@ var Modal = function (_Component) {
         return _react2.default.createElement(
           'button',
           {
-            className: 'btn no-background',
+            className: 'btn',
             key: index,
             onClick: function onClick() {
               item.onClick(_this2.refs.input);
@@ -50,12 +50,12 @@ var Modal = function (_Component) {
       }).concat(_react2.default.createElement(
         'button',
         {
-          className: 'btn no-background',
+          className: 'btn',
           key: 'close',
           onClick: function onClick() {
             _this2.props.dispatch(_this2.props.hideModal());
           } },
-        'CLOSE'
+        'Close'
       ));
 
       return _react2.default.createElement(

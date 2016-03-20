@@ -3,8 +3,7 @@ import {
   removeRemember,
   editRemember,
   showModal,
-  moveToNextRemember as moveToNext,
-  moveToPreviousRemember as moveToPrevious
+  moveRemember
 } from '../actions';
 
 export default class extends Component {
@@ -18,7 +17,7 @@ export default class extends Component {
       title: 'Edit Remember',
       defaultValue: text,
       buttons: [{
-        title: 'EDIT',
+        title: 'Edit',
         onClick: (input => {
           this.props.dispatch(editRemember(input.value, id));
         }).bind(this)
@@ -43,12 +42,12 @@ export default class extends Component {
             <span className="icon light icon-arrow-left"
               title="Move to previous day"
               onClick={() => {
-                this.props.dispatch(moveToPrevious(item.id));
+                this.props.dispatch(moveRemember(item.id, -1));
               }}></span>
             <span className="icon light icon-arrow-right"
               title="Move to next day"
               onClick={() => {
-                this.props.dispatch(moveToNext(item.id));
+                this.props.dispatch(moveRemember(item.id, 1));
               }}></span>
           </div>
         </li>

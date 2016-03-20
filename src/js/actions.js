@@ -14,10 +14,12 @@ export const EDIT_REMEMBER = 'EDIT_REMEMBER';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const LOAD_REMEMBER = 'LOAD_REMEMBER';
-export const MOVE_TO_NEXT_REMEMBER = 'MOVE_TO_NEXT_REMEMBER';
-export const MOVE_TO_PREVIOUS_REMEMBER = 'MOVE_TO_PREVIOUS_REMEMBER';
-export const MOVE_TO_NEXT_TODO = 'MOVE_TO_NEXT_TODO';
-export const MOVE_TO_PREVIOUS_TODO = 'MOVE_TO_PREVIOUS_TODO';
+export const MOVE_TODO = 'MOVE_TODO';
+export const MOVE_REMEMBER = 'MOVE_REMEMBER';
+export const CONFIG_REMOVE = 0;
+export const CONFIG_KEEP = 1;
+export const CONFIG_MOVE = 2;
+export const SET_CONFIG = 'SET_CONFIG';
 
 /**
  * Actions creators
@@ -82,18 +84,14 @@ export function loadRemember(remember) {
   };
 }
 
-export function moveToNextRemember(id) {
-  return { type: MOVE_TO_NEXT_REMEMBER, id };
+export function moveTodo(id, duration) {
+  return { type: MOVE_TODO, id, duration };
 }
 
-export function moveToPreviousRemember(id) {
-  return { type: MOVE_TO_PREVIOUS_REMEMBER, id };
+export function moveRemember(id, duration) {
+  return { type: MOVE_REMEMBER, id, duration };
 }
 
-export function moveToNextTodo(id) {
-  return { type: MOVE_TO_NEXT_TODO, id };
-}
-
-export function moveToPreviousTodo(id) {
-  return { type: MOVE_TO_PREVIOUS_TODO, id };
+export function saveConfig(config) {
+  return { type: SET_CONFIG, config };
 }

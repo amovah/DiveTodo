@@ -41,7 +41,7 @@ var _class = function (_Component) {
         title: 'Edit Remember',
         defaultValue: text,
         buttons: [{
-          title: 'EDIT',
+          title: 'Edit',
           onClick: function (input) {
             _this2.props.dispatch((0, _actions.editRemember)(input.value, id));
           }.bind(this)
@@ -78,12 +78,12 @@ var _class = function (_Component) {
             _react2.default.createElement('span', { className: 'icon light icon-arrow-left',
               title: 'Move to previous day',
               onClick: function onClick() {
-                _this3.props.dispatch((0, _actions.moveToPreviousRemember)(item.id));
+                _this3.props.dispatch((0, _actions.moveRemember)(item.id, -1));
               } }),
             _react2.default.createElement('span', { className: 'icon light icon-arrow-right',
               title: 'Move to next day',
               onClick: function onClick() {
-                _this3.props.dispatch((0, _actions.moveToNextRemember)(item.id));
+                _this3.props.dispatch((0, _actions.moveRemember)(item.id, 1));
               } })
           )
         );

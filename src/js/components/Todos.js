@@ -5,8 +5,7 @@ import {
   uncompleteTodo,
   editTodo,
   showModal,
-  moveToNextTodo as moveToNext,
-  moveToPreviousTodo as moveToPrevious
+  moveTodo
  } from '../actions';
 
 export default class extends Component {
@@ -27,7 +26,7 @@ export default class extends Component {
       title: 'Edit Todo',
       defaultValue: text,
       buttons: [{
-        title: 'EDIT',
+        title: 'Edit',
         onClick: (input => {
           this.props.dispatch(editTodo(input.value, id));
         }).bind(this)
@@ -57,12 +56,12 @@ export default class extends Component {
             <span className="icon light icon-arrow-left"
               title="Move to previous day"
               onClick={() => {
-                this.props.dispatch(moveToPrevious(item.id));
+                this.props.dispatch(moveTodo(item.id, -1));
               }}></span>
             <span className="icon light icon-arrow-right"
               title="Move to next day"
               onClick={() => {
-                this.props.dispatch(moveToNext(item.id));
+                this.props.dispatch(moveTodo(item.id, 1));
               }}></span>
           </div>
         </li>

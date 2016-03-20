@@ -16,7 +16,7 @@ class DoRemember extends Component {
       title: 'Add Todo',
       placeholder: 'Todo',
       buttons: [{
-        title: 'ADD',
+        title: 'Add',
         onClick: (input => {
           this.props.dispatch(addTodo(input.value, this.props.params.date));
         }).bind(this)
@@ -29,7 +29,7 @@ class DoRemember extends Component {
       title: 'Add Remember',
       placeholder: 'Remember',
       buttons: [{
-        title: 'ADD',
+        title: 'Add',
         onClick: (input => {
           this.props.dispatch(addRemember(input.value, this.props.params.date));
         }).bind(this)

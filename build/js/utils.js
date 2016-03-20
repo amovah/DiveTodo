@@ -9,21 +9,27 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 exports.updateDatabase = updateDatabase;
 exports.readDatabase = readDatabase;
 exports.find = find;
-exports.getPureDate = getPureDate;
 exports.write = write;
 exports.read = read;
 exports.loadAll = loadAll;
 
 var _fs = require('fs');
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _actions = require('./actions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var DATABASE = __dirname.split('/').slice(0, -1).join('/') + '/database.json';
 
 function updateDatabase(database) {
   return write(DATABASE, JSON.stringify({
     todos: database.todos,
-    remembers: database.remembers
+    remembers: database.remembers,
+    config: database.config
   }, null, 2));
 }
 
@@ -65,15 +71,6 @@ function find(state, id) {
   }
 }
 
-function getPureDate(date) {
-  date.millisecond(0);
-  date.second(0);
-  date.minute(0);
-  date.hour(0);
-
-  return date;
-}
-
 function write() {
   for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
@@ -106,6 +103,9 @@ function read() {
 
 function loadAll(dispatch, state) {
   return new Promise(function (resolve) {
+    var now = (0, _moment2.default)().startOf('day').valueOf();
+    dispatch((0, _actions.saveConfig)(state.config));
+
     var _iteratorNormalCompletion2 = true;
     var _didIteratorError2 = false;
     var _iteratorError2 = undefined;
@@ -114,7 +114,24 @@ function loadAll(dispatch, state) {
       for (var _iterator2 = state.todos[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
         var todo = _step2.value;
 
-        dispatch((0, _actions.loadTodo)(todo));
+        switch (state.config.todos) {
+          case _actions.CONFIG_KEEP:
+            dispatch((0, _actions.loadTodo)(todo));
+            break;
+          case _actions.CONFIG_MOVE:
+            if (todo.date < now && !todo.completed) {
+              todo.date = now;
+              dispatch((0, _actions.loadTodo)(todo));
+            } else if (todo.date >= now) {
+              dispatch((0, _actions.loadTodo)(todo));
+            }
+            break;
+          case _actions.CONFIG_REMOVE:
+            if (todo.date >= now) {
+              dispatch((0, _actions.loadTodo)(todo));
+            }
+            break;
+        }
       }
     } catch (err) {
       _didIteratorError2 = true;
@@ -139,7 +156,16 @@ function loadAll(dispatch, state) {
       for (var _iterator3 = state.remembers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
         var remember = _step3.value;
 
-        dispatch((0, _actions.loadRemember)(remember));
+        switch (state.config.remembers) {
+          case _actions.CONFIG_KEEP:
+            dispatch((0, _actions.loadRemember)(remember));
+            break;
+          case _actions.CONFIG_REMOVE:
+            if (remember.date >= now) {
+              dispatch((0, _actions.loadRemember)(remember));
+            }
+            break;
+        }
       }
     } catch (err) {
       _didIteratorError3 = true;

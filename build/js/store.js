@@ -24,11 +24,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var store = (0, _redux.createStore)(_reducers2.default);
 
-_reactRouter.hashHistory.push('/app/' + (0, _utils.getPureDate)((0, _moment2.default)()).valueOf());
+_reactRouter.hashHistory.push('/app/' + (0, _moment2.default)().startOf('day').valueOf());
 
 (0, _utils.readDatabase)().then(function (database) {
   (0, _utils.loadAll)(store.dispatch, database).then(function () {
     store.subscribe(function () {
+      console.log(store.getState());
       (0, _utils.updateDatabase)(store.getState()).catch(function (err) {
         _electron.remote.dialog.showErrorBox('Faild, Can not save database', err.toString());
       });

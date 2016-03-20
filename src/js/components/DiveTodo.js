@@ -4,7 +4,6 @@ import { hashHistory } from 'react-router';
 import moment from 'moment';
 import Daypicker from './Daypicker';
 import Modal from './Modal';
-import { getPureDate } from '../utils';
 
 class DiveTodo extends Component {
   constructor() {
@@ -18,7 +17,7 @@ class DiveTodo extends Component {
   }
 
   onSelect(e, date) {
-    hashHistory.push('/app/' + getPureDate(moment(date)).valueOf());
+    hashHistory.push(`/app/${moment(date).startOf('day').valueOf()}`);
     this.refs.daypicker.classList.remove('active');
   }
 

@@ -16,8 +16,6 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _utils = require('../utils');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41,7 +39,7 @@ var _class = function (_Component) {
   _createClass(_class, [{
     key: 'toggleApp',
     value: function toggleApp() {
-      this.props.location.pathname === '/settings' ? _reactRouter.hashHistory.push('/app/' + (0, _utils.getPureDate)((0, _moment2.default)()).valueOf()) : _reactRouter.hashHistory.push('/settings');
+      this.props.location.pathname === '/settings' ? _reactRouter.hashHistory.push('/app/' + (0, _moment2.default)().startOf('day').valueOf()) : _reactRouter.hashHistory.push('/settings');
     }
   }, {
     key: 'render',

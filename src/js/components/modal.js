@@ -7,7 +7,7 @@ class Modal extends Component {
     const buttons = this.props.buttons.map((item, index) => {
       return (
         <button
-          className="btn no-background"
+          className="btn"
           key={index}
           onClick={() => { item.onClick(this.refs.input); }}>
           {item.title}
@@ -15,12 +15,12 @@ class Modal extends Component {
       );
     }).concat(
       <button
-        className="btn no-background"
+        className="btn"
         key="close"
         onClick={() => {
           this.props.dispatch(this.props.hideModal());
         }}>
-        CLOSE
+        Close
       </button>
     );
 
