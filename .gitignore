@@ -27,3 +27,8 @@ build/Release
 node_modules
 
 .DS_Store
+
+# build directories
+DiveTodo-darwin-x64
+DiveTodo-linux-x64
+build

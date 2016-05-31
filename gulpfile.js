@@ -4,10 +4,11 @@ var babel = require('gulp-babel');
 var clean = require('gulp-rimraf');
 var less = require('gulp-less');
 
-gulp.task('lint', ['clean'], function() {
+gulp.task('lint', function() {
   return gulp.src('src/**/*.js')
         .pipe(eslint())
-        .pipe(eslint.format());
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 gulp.task('clean', function() {
@@ -36,8 +37,14 @@ gulp.task('less', function() {
         .pipe(gulp.dest('build/css/'));
 });
 
-gulp.task('default', ['clean', 'less', 'lint', 'babel', 'copy']);
+gulp.task('pre-build', ['clean', 'less', 'babel', 'copy']);
+
+gulp.task('default', ['pre-build']);
 
 gulp.task('watch', function() {
-  gulp.watch('src/**/*', ['clean', 'less', 'lint', 'babel', 'copy']);
+  gulp.watch('src/**/*', ['pre-build']);
+});
+
+gulp.task('build', ['lint'], function() {
+  return gulp.start('pre-build');
 });

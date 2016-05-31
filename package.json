@@ -1,10 +1,15 @@
 {
   "name": "divetodo",
-  "version": "1.4.0",
+  "productName": "DiveTodo",
+  "version": "1.5.0",
   "description": "Design your days and dive to them",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "start": "./node_modules/electron-prebuilt/cli.js ./build/"
+    "dev": "DEVELOPMENT=true ./node_modules/electron-prebuilt/cli.js ./build/",
+    "prod": "./node_modules/electron-prebuilt/cli.js ./build/",
+    "build-darwin": "./node_modules/electron-packager/cli.js . --platform=darwin --arch=x64 --prune",
+    "build-linux": "./node_modules/electron-packager/cli.js . --platform=linux --arch=x64 --prune",
+    "build-windows": "echo \"I hate windows, I love Linux. Use Linux instead.\""
   },
   "repository": {
     "type": "git",
@@ -16,8 +21,15 @@
     "url": "https://github.com/amovah/divetodo/issues"
   },
   "homepage": "https://github.com/amovah/divetodo#readme",
+  "directories": {
+    "lib": "src"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  },
   "dependencies": {
-    "electron-prebuilt": "^0.37.1",
+    "chart.js": "^2.1.2",
+    "electron-prebuilt": "^1.1.0",
     "moment": "^2.12.0",
     "react": "^0.14.7",
     "react-day-picker": "^1.1.5",
@@ -32,6 +44,7 @@
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
+    "electron-packager": "^7.0.2",
     "eslint-plugin-react": "^4.2.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",

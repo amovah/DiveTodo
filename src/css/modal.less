@@ -1,17 +1,19 @@
 .modal {
   position: fixed;
-  right: 10px;
-  top: 10px;
-  border-radius: 3px;
-  background-color: @color-3;
-  box-shadow: 2px 3px 4px 6px rgba(0, 0, 0, 0.21),
-              4px 6px 11px 13px rgba(0, 0, 0, 0.23);
+  top: 0;
+  left: 50%;
+  right: 0;
+  width: 70%;
+  border-radius: 5px;
+  background-color: @color-2;
   padding: 10px;
-  width: 300px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
-  transform: translateY(-200%);
+  text-align: center;
+  box-shadow: 0 0 0 100rem rgba(0, 0, 0, 0);
+  transform: translateY(-100%) translateX(-50%);
 
   .modal-content {
     h4 {
@@ -22,8 +24,33 @@
   .modal-footer {
     margin-top: 10px;
   }
-}
 
-.modal.active {
-  transform: translateY(0);
+  &.active {
+    transform: translateY(0%) translateX(-50%);
+    box-shadow: 0 0 0 100rem rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.8);
+  }
+
+  input[type="text"] {
+    border: 0;
+    outline: 0;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    color: white;
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    font-size: 80%;
+    width: 60%;
+    transform: scale(1);
+    transition: all 0.7s ease;
+
+    &:focus {
+      transform: scale(1.1);
+    }
+  }
+
+  button {
+    font-size: 80%;
+  }
 }
